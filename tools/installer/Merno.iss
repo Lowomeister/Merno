@@ -35,7 +35,9 @@ WizardStyle=modern
 SetupIconFile={#Root}\Assets\app.ico
 UninstallDisplayIcon={app}\Merno.exe,0
 UninstallDisplayName=Merno
-LicenseFile={#Root}\LICENSE.txt
+; GPL не требует согласия для использования, поэтому не «Принять лицензию», а короткая справка по-русски.
+; Полный текст GPL ставится в licenses и открывается в Merno («Настройки» → «Текст лицензии»).
+InfoBeforeFile={#Root}\tools\installer\info-ru.txt
 OutputBaseFilename=Merno.Setup
 Compression=lzma2/max
 SolidCompression=yes
