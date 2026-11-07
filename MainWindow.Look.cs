@@ -92,7 +92,7 @@ public partial class MainWindow
         {
             var src = LoadLogo(file);
             if (src != null && !ActiveTheme.IsBase) src = ActiveTheme.Logo(src);
-            var img = new Image { Source = src, Width = 48, Height = 48, Margin = new Thickness(0, 0, 0, 8) };
+            var img = new Image { Source = src, Width = 48, Height = 48, Margin = new Thickness(0, 0, 0, 8), HorizontalAlignment = HorizontalAlignment.Left };
             RenderOptions.SetBitmapScalingMode(img, BitmapScalingMode.HighQuality);
             var sp = new StackPanel();
             sp.Children.Add(img);
@@ -105,7 +105,8 @@ public partial class MainWindow
             title.Children.Add(new TextBlock { Text = name, FontSize = 14.5, FontWeight = FontWeights.SemiBold, Foreground = B("Text") });
             sp.Children.Add(title);
             var tile = new Button { Style = (Style)FindResource("Tile"), Content = sp, Width = 140, Margin = new Thickness(0, 0, 12, 12), Padding = new Thickness(12),
-                                    VerticalContentAlignment = VerticalAlignment.Top, HorizontalContentAlignment = HorizontalAlignment.Left };
+                                    // содержимое на всю ширину плитки: галочка у правого края, как у тем
+                                    VerticalContentAlignment = VerticalAlignment.Top, HorizontalContentAlignment = HorizontalAlignment.Stretch };
             if (id == chosen) tile.BorderBrush = B("Accent");
             var cid = id;
             tile.Click += (_, _) => ChooseIcon(cid);

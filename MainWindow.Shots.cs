@@ -93,8 +93,10 @@ public partial class MainWindow
                 Width = w; Height = h;
                 foreach (var p in pages)
                 {
-                    ShowPageByName(p);
-                    if (p == "PageApps" && !_appsBuilt) { }
+                    // «Страница#Вкладка»: открыть страницу и отметить вкладку (x:Name переключателя), например PageSettings#SetTabLook
+                    var spec = p.Split('#', 2);
+                    ShowPageByName(spec[0]);
+                    if (spec.Length == 2 && FindName(spec[1]) is System.Windows.Controls.Primitives.ToggleButton tab) tab.IsChecked = true;
                     await Task.Delay(p == "PageHome" ? 800 : 6000);   // списки программ догружаются в фоне
                     // для разбора: Windows может не дать окну за экраном нужную ширину, тогда меню свернётся само
                     File.AppendAllText(Path.Combine(ShotDir, "shots.txt"), $"{p}-{w}: окно {ActualWidth:0}×{ActualHeight:0}, меню {(_sideShown ? "раскрыто" : "свёрнуто")} ({NavFitState()}), масштаб {_uiScale:0.00}\n");
