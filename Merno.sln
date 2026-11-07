@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Merno", "Merno.csproj", "{094A069C-5C77-4A0A-86A5-638352DD41CA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Merno.Tests", "Merno.Tests\Merno.Tests.csproj", "{AFFE018E-C790-4928-8876-488D68E25E2A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{094A069C-5C77-4A0A-86A5-638352DD41CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{094A069C-5C77-4A0A-86A5-638352DD41CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{094A069C-5C77-4A0A-86A5-638352DD41CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{094A069C-5C77-4A0A-86A5-638352DD41CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFFE018E-C790-4928-8876-488D68E25E2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFFE018E-C790-4928-8876-488D68E25E2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFFE018E-C790-4928-8876-488D68E25E2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFFE018E-C790-4928-8876-488D68E25E2A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

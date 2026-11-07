@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SignPath: артефакт «unsigned-binaries» из .github/workflows/build.yml (slug: binaries) -->
+<artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
+  <zip-file>
+    <directory path="launcher">
+      <pe-file path="Merno.exe"><authenticode-sign /></pe-file>
+    </directory>
+    <directory path="app">
+      <pe-file path="Merno.exe"><authenticode-sign /></pe-file>
+    </directory>
+    <directory path="portable">
+      <pe-file path="Merno.exe"><authenticode-sign /></pe-file>
+    </directory>
+  </zip-file>
+</artifact-configuration>

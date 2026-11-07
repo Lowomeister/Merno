@@ -1,0 +1,9 @@
+# Перед новым обращением на GitHub показываем, где ответят быстрее.
+blank_issues_enabled: true
+contact_links:
+  - name: Написать в Telegram
+    url: https://t.me/Lowomebot?start=merno
+    about: Быстрее всего ответим там. В Merno — «Связаться с нами» → «Скопировать сведения», и вставьте их в сообщение.
+  - name: Сообщить об уязвимости
+    url: https://github.com/Lowomeister/Merno/security/advisories/new
+    about: Об ошибках безопасности пишите сюда, а не в общий список — так о них узнаем только мы.

@@ -1,0 +1,2 @@
+# Preserve the upstream notice hashes on Windows checkouts too.
+docs/licenses/*-THIRD-PARTY-NOTICES.TXT text eol=lf

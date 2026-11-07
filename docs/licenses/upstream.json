@@ -1,0 +1,14 @@
+[
+  {
+    "file": "wpf-10.0.14-THIRD-PARTY-NOTICES.TXT",
+    "source": "https://raw.githubusercontent.com/dotnet/wpf/v10.0.14/THIRD-PARTY-NOTICES.TXT",
+    "sha256": "d23dba2fee20c6b59d8f7088ee9ed372459c952a319b7ca90f3eec370cc76eb9",
+    "runtime_version": "10.0.14"
+  },
+  {
+    "file": "winforms-10.0.14-THIRD-PARTY-NOTICES.TXT",
+    "source": "https://raw.githubusercontent.com/dotnet/winforms/v10.0.14/THIRD-PARTY-NOTICES.TXT",
+    "sha256": "5a412b38efae0b162dc0893b319023f4cd14a8985a0f9f9ae01ac052b37a36eb",
+    "runtime_version": "10.0.14"
+  }
+]

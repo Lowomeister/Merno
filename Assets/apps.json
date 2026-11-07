@@ -1,0 +1,935 @@
+[
+  {
+    "name": "Google Chrome",
+    "category": "Браузеры и общение",
+    "winget": "Google.Chrome",
+    "url": "https://www.google.com/chrome/",
+    "desc": "Популярный быстрый браузер для сайтов, видео и расширений.",
+    "match": "Google Chrome"
+  },
+  {
+    "name": "Mozilla Firefox",
+    "category": "Браузеры и общение",
+    "winget": "Mozilla.Firefox",
+    "url": "https://www.mozilla.org/firefox/new/",
+    "desc": "Браузер, который бережёт вашу приватность.",
+    "match": "Mozilla Firefox"
+  },
+  {
+    "name": "Discord",
+    "category": "Браузеры и общение",
+    "winget": "Discord.Discord",
+    "url": "https://discord.com/download",
+    "desc": "Голосовой и текстовый чат для игр и сообществ.",
+    "match": "Discord"
+  },
+  {
+    "name": "Telegram Desktop",
+    "category": "Браузеры и общение",
+    "winget": "Telegram.TelegramDesktop",
+    "url": "https://desktop.telegram.org/",
+    "desc": "Мессенджер Telegram для компьютера.",
+    "match": "Telegram Desktop"
+  },
+  {
+    "name": "Steam",
+    "category": "Игры и лаунчеры",
+    "winget": "Valve.Steam",
+    "url": "https://store.steampowered.com/about/",
+    "desc": "Магазин и лаунчер компьютерных игр.",
+    "match": "Steam"
+  },
+  {
+    "name": "Epic Games Launcher",
+    "category": "Игры и лаунчеры",
+    "winget": "EpicGames.EpicGamesLauncher",
+    "url": "https://store.epicgames.com/download",
+    "desc": "Магазин и лаунчер игр Epic. Часто раздаёт игры бесплатно.",
+    "match": "Epic Games Launcher"
+  },
+  {
+    "name": "Battle.net",
+    "category": "Игры и лаунчеры",
+    "winget": "Blizzard.BattleNet",
+    "url": "https://www.blizzard.com/apps/battle.net/desktop",
+    "desc": "Лаунчер игр Blizzard: Diablo, Overwatch, World of Warcraft.",
+    "match": "Battle.net"
+  },
+  {
+    "name": "EA app",
+    "category": "Игры и лаунчеры",
+    "winget": "ElectronicArts.EADesktop",
+    "url": "https://www.ea.com/ea-app",
+    "desc": "Лаунчер игр Electronic Arts: EA Sports FC, The Sims, Battlefield.",
+    "match": "EA app"
+  },
+  {
+    "name": "Ubisoft Connect",
+    "category": "Игры и лаунчеры",
+    "winget": "Ubisoft.Connect",
+    "url": "https://www.ubisoft.com/ru-ru/ubisoft-connect/download",
+    "desc": "Лаунчер игр Ubisoft: Assassin's Creed, Far Cry и другие.",
+    "match": "Ubisoft Connect"
+  },
+  {
+    "name": "7-Zip",
+    "category": "Полезные утилиты",
+    "winget": "7zip.7zip",
+    "url": "https://www.7-zip.org/",
+    "desc": "Открывает RAR, ZIP, 7z и другие архивы, создаёт ZIP и 7z.",
+    "match": "7-Zip"
+  },
+  {
+    "name": "VLC media player",
+    "category": "Полезные утилиты",
+    "winget": "VideoLAN.VLC",
+    "url": "https://www.videolan.org/vlc/",
+    "desc": "Открывает почти любое видео и музыку.",
+    "match": "VLC media player"
+  },
+  {
+    "name": "ShareX",
+    "category": "Полезные утилиты",
+    "winget": "ShareX.ShareX",
+    "url": "https://getsharex.com/",
+    "desc": "Скриншоты и запись экрана.",
+    "match": "ShareX"
+  },
+  {
+    "name": "Notepad++",
+    "category": "Полезные утилиты",
+    "winget": "Notepad++.Notepad++",
+    "url": "https://notepad-plus-plus.org/downloads/",
+    "desc": "Удобный блокнот для заметок и кода.",
+    "match": "Notepad++"
+  },
+  {
+    "name": "Everything",
+    "category": "Полезные утилиты",
+    "winget": "voidtools.Everything",
+    "url": "https://www.voidtools.com/downloads/",
+    "desc": "Мгновенно находит любой файл по имени.",
+    "match": "Everything"
+  },
+  {
+    "name": "CrystalDiskInfo",
+    "category": "Полезные утилиты",
+    "winget": "CrystalDewWorld.CrystalDiskInfo",
+    "url": "https://crystalmark.info/en/software/crystaldiskinfo/",
+    "desc": "Покажет, не пора ли менять диск.",
+    "match": "CrystalDiskInfo"
+  },
+  {
+    "name": "HWiNFO",
+    "category": "Полезные утилиты",
+    "winget": "REALiX.HWiNFO",
+    "url": "https://www.hwinfo.com/download/",
+    "desc": "Всё о железе компьютера и его температуре.",
+    "match": "HWiNFO"
+  },
+  {
+    "name": "Spotify",
+    "category": "Полезные утилиты",
+    "winget": "Spotify.Spotify",
+    "loader": "spotify",
+    "url": "https://www.spotify.com/download/windows/",
+    "desc": "Музыка и подкасты. Merno ставит версию из LoaderSpot: обычный установщик из России не работает.",
+    "match": "Spotify"
+  },
+  {
+    "name": "StartAllBack",
+    "category": "Улучшения Windows",
+    "winget": "StartIsBack.StartAllBack",
+    "url": "https://www.startallback.com/",
+    "desc": "Возвращает меню «Пуск», панель задач и Проводник как в Windows 10. Только для Windows 11. Платная, с пробным периодом.",
+    "match": "StartAllBack",
+    "forOs": "11"
+  },
+  {
+    "name": "ExplorerPatcher",
+    "category": "Улучшения Windows",
+    "winget": "valinet.ExplorerPatcher",
+    "url": "https://github.com/valinet/ExplorerPatcher/releases",
+    "desc": "Панель задач и «Пуск» как в Windows 10. Бесплатно. Может сломаться после крупного обновления Windows, а некоторые антивирусы считают её подозрительной.",
+    "match": "ExplorerPatcher",
+    "forOs": "11"
+  },
+  {
+    "name": "StartIsBack++",
+    "category": "Улучшения Windows",
+    "winget": "StartIsBack.StartIsBack",
+    "url": "https://www.startisback.com/",
+    "desc": "Возвращает меню «Пуск» и панель задач Windows 7/10 на Windows 10. Только для Windows 10. Платная, с пробным периодом. Разработчик тот же, что у StartAllBack.",
+    "match": "StartIsBack",
+    "forOs": "10"
+  },
+  {
+    "name": "NVIDIA App",
+    "category": "Драйверы и железо",
+    "winget": null,
+    "url": "https://www.nvidia.com/en-us/software/nvidia-app/",
+    "desc": "Обновляет драйвер видеокарты NVIDIA.",
+    "match": "NVIDIA App",
+    "tab": "drivers",
+    "forGpu": "nvidia"
+  },
+  {
+    "name": "AMD Software: Adrenalin Edition",
+    "category": "Драйверы и железо",
+    "winget": null,
+    "url": "https://www.amd.com/en/support/download/drivers.html",
+    "desc": "Драйвер и настройки для видеокарт AMD Radeon.",
+    "match": "AMD Software",
+    "tab": "drivers",
+    "forGpu": "amd"
+  },
+  {
+    "name": "AMD Chipset Software",
+    "category": "Драйверы и железо",
+    "winget": null,
+    "url": "https://www.amd.com/en/support/download/drivers.html",
+    "desc": "Драйвер чипсета для процессоров AMD Ryzen. Нужен, чтобы правильно работали питание, USB и все ядра процессора. Поставьте после переустановки Windows.",
+    "match": "AMD Chipset Software",
+    "tab": "drivers",
+    "forCpu": "amd"
+  },
+  {
+    "name": "Intel Driver & Support Assistant",
+    "category": "Драйверы и железо",
+    "winget": "Intel.IntelDriverAndSupportAssistant",
+    "url": "https://www.intel.com/content/www/us/en/support/detect.html",
+    "desc": "Сам находит новые драйверы для устройств Intel.",
+    "match": "Driver & Support Assistant",
+    "tab": "drivers",
+    "forCpu": "intel"
+  },
+  {
+    "name": "AMD Ryzen Master",
+    "category": "Проверка железа и разгон",
+    "winget": null,
+    "url": "https://www.amd.com/en/products/software/ryzen-master.html",
+    "desc": "Показывает частоту, температуру и нагрузку процессора AMD Ryzen. Позволяет разгонять оборудование. Устанавливайте, только если понимаете, зачем.",
+    "match": "Ryzen Master",
+    "forCpu": "amd",
+    "desktopOnly": true,
+    "tuning": true
+  },
+  {
+    "name": "MSI Afterburner",
+    "category": "Проверка железа и разгон",
+    "winget": "Guru3D.Afterburner",
+    "url": "https://www.msi.com/Landing/afterburner/graphics-cards",
+    "desc": "Показывает нагрузку и температуру видеокарты, умеет её разгонять.",
+    "match": "MSI Afterburner",
+    "forGpu": "nvidia|amd",
+    "tuning": true
+  },
+  {
+    "name": "OCCT",
+    "category": "Проверка железа и разгон",
+    "winget": "OCBase.OCCT.Personal",
+    "url": "https://www.ocbase.com/",
+    "desc": "Тест под нагрузкой: проверяет температуру и стабильность процессора и видеокарты. Нужен редко, после проверки программу можно удалить.",
+    "match": "OCCT",
+    "tuning": true
+  },
+  {
+    "name": "CPU-Z",
+    "category": "Проверка железа и разгон",
+    "winget": "CPUID.CPU-Z",
+    "url": "https://www.cpuid.com/softwares/cpu-z.html",
+    "desc": "Точная модель процессора, платы и памяти, частоты. После просмотра сведений программу можно удалить.",
+    "match": "CPUID CPU-Z",
+    "tuning": true
+  },
+  {
+    "name": "GPU-Z",
+    "category": "Проверка железа и разгон",
+    "winget": "TechPowerUp.GPU-Z",
+    "url": "https://www.techpowerup.com/gpuz/",
+    "desc": "Всё о видеокарте: модель, память, частоты, температура.",
+    "match": "TechPowerUp GPU-Z",
+    "tuning": true
+  },
+  {
+    "name": "Display Driver Uninstaller (DDU)",
+    "category": "Проверка железа и разгон",
+    "winget": "Wagnardsoft.DisplayDriverUninstaller",
+    "url": "https://www.wagnardsoft.com/display-driver-uninstaller-DDU-",
+    "desc": "Начисто удаляет драйвер видеокарты, когда обычная переустановка не помогает. Запускайте в безопасном режиме («Инструменты»).",
+    "match": "Display Driver Uninstaller",
+    "tuning": true
+  },
+  {
+    "name": "zapret-discord-youtube",
+    "category": "Обход блокировок",
+    "winget": null,
+    "url": "https://github.com/Flowseal/zapret-discord-youtube/releases",
+    "desc": "Помогает, если у вас не работают Discord и YouTube. Ставится вручную по инструкции на сайте.",
+    "match": null,
+    "author": "Flowseal"
+  },
+  {
+    "name": "tg-ws-proxy",
+    "category": "Обход блокировок",
+    "winget": null,
+    "url": "https://github.com/Flowseal/tg-ws-proxy/releases",
+    "author": "Flowseal",
+    "match": null,
+    "desc": "Ускоряет Telegram на компьютере, если он плохо грузится. Скачивается с сайта."
+  },
+  {
+    "name": "Python 3.14",
+    "category": "Для разработчиков",
+    "winget": "Python.Python.3.14",
+    "match": "Python 3.14",
+    "url": "https://www.python.org/downloads/",
+    "desc": "Язык программирования для скриптов, ботов и учёбы."
+  },
+  {
+    "name": "Node.js LTS",
+    "category": "Для разработчиков",
+    "winget": "OpenJS.NodeJS.LTS",
+    "match": "Node.js",
+    "url": "https://nodejs.org/",
+    "desc": "Для разработки сайтов и ботов на JavaScript."
+  },
+  {
+    "name": "Git",
+    "category": "Для разработчиков",
+    "winget": "Git.Git",
+    "match": "Git",
+    "url": "https://git-scm.com/",
+    "desc": "Хранит историю изменений кода."
+  },
+  {
+    "name": "Sublime Text",
+    "category": "Для разработчиков",
+    "winget": "SublimeHQ.SublimeText.4",
+    "match": "Sublime Text",
+    "url": "https://www.sublimetext.com/download",
+    "desc": "Быстрый редактор кода и текста, работает даже на слабом компьютере. Бесплатно можно пользоваться с напоминанием о покупке, потом лицензия платная."
+  },
+  {
+    "name": "Visual Studio Code",
+    "category": "Для разработчиков",
+    "winget": "Microsoft.VisualStudioCode",
+    "match": "Microsoft Visual Studio Code",
+    "url": "https://code.visualstudio.com/",
+    "desc": "Популярный редактор кода."
+  },
+  {
+    "name": "Visual Studio Community 2026",
+    "category": "Для разработчиков",
+    "winget": "Microsoft.VisualStudio.Community",
+    "match": "Visual Studio Community",
+    "url": "https://visualstudio.microsoft.com/",
+    "desc": "Среда для программ на C#, C++ и .NET. Бесплатна для учёбы."
+  },
+  {
+    "name": "JetBrains Toolbox",
+    "category": "Для разработчиков",
+    "winget": "JetBrains.Toolbox",
+    "match": "JetBrains Toolbox",
+    "url": "https://www.jetbrains.com/toolbox-app/",
+    "desc": "Ставит PyCharm, IntelliJ IDEA и другие программы JetBrains."
+  },
+  {
+    "name": "DBeaver",
+    "category": "Для разработчиков",
+    "winget": "dbeaver.dbeaver",
+    "match": "DBeaver",
+    "url": "https://dbeaver.io/",
+    "desc": "Просмотр и правка баз данных разных видов."
+  },
+  {
+    "name": "SQL Server Management Studio",
+    "category": "Для разработчиков",
+    "winget": "Microsoft.SQLServerManagementStudio.22",
+    "match": "Microsoft SQL Server Management Studio",
+    "url": "https://learn.microsoft.com/sql/ssms/",
+    "desc": "Управление базами Microsoft SQL Server."
+  },
+  {
+    "name": "MySQL Workbench",
+    "category": "Для разработчиков",
+    "winget": "Oracle.MySQLWorkbench",
+    "match": "MySQL Workbench",
+    "url": "https://www.mysql.com/products/workbench/",
+    "desc": "Проектирование и запросы к базам MySQL."
+  },
+  {
+    "name": "PostgreSQL 18",
+    "category": "Для разработчиков",
+    "winget": "PostgreSQL.PostgreSQL.18",
+    "match": "PostgreSQL 18",
+    "url": "https://www.postgresql.org/download/windows/",
+    "desc": "Сервер баз данных PostgreSQL вместе с pgAdmin."
+  },
+  {
+    "name": "Docker Desktop",
+    "category": "Для разработчиков",
+    "winget": "Docker.DockerDesktop",
+    "match": "Docker Desktop",
+    "url": "https://www.docker.com/products/docker-desktop/",
+    "desc": "Запускает программы для разработки в отдельных «контейнерах», не засоряя систему. Нужен разработчикам. Для крупных компаний платный."
+  },
+  {
+    "name": "Postman",
+    "category": "Для разработчиков",
+    "winget": "Postman.Postman",
+    "match": "Postman",
+    "url": "https://www.postman.com/downloads/",
+    "desc": "Проверка запросов к сайтам и сервисам (API). Для разработчиков."
+  },
+  {
+    "name": "Visual C++ 2015–2022",
+    "tab": "runtime",
+    "rec": true,
+    "category": "Visual C++ для большинства игр и программ",
+    "winget": "Microsoft.VCRedist.2015+.x64;Microsoft.VCRedist.2015+.x86",
+    "match": "Microsoft Visual C++ 2015|Microsoft Visual C++ v14",
+    "url": "https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist",
+    "desc": "Нужно почти всем играм и многим программам, например OBS. Ставьте в первую очередь."
+  },
+  {
+    "name": "Visual C++ 2013",
+    "tab": "runtime",
+    "rec": true,
+    "category": "Visual C++ для большинства игр и программ",
+    "winget": "Microsoft.VCRedist.2013.x64;Microsoft.VCRedist.2013.x86",
+    "match": "Microsoft Visual C++ 2013",
+    "url": "https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist",
+    "desc": "Нужно играм, если они сообщают «не найден MSVCR120.dll» или «MSVCP120.dll»."
+  },
+  {
+    "name": "Visual C++ 2012",
+    "tab": "runtime",
+    "rec": true,
+    "category": "Visual C++ для большинства игр и программ",
+    "winget": "Microsoft.VCRedist.2012.x64;Microsoft.VCRedist.2012.x86",
+    "match": "Microsoft Visual C++ 2012",
+    "url": "https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist",
+    "desc": "Нужно играм, если они сообщают «не найден MSVCR110.dll» или «MSVCP110.dll»."
+  },
+  {
+    "name": "Visual C++ 2010",
+    "tab": "runtime",
+    "rec": true,
+    "category": "Visual C++ для большинства игр и программ",
+    "winget": "Microsoft.VCRedist.2010.x64;Microsoft.VCRedist.2010.x86",
+    "match": "Microsoft Visual C++ 2010",
+    "url": "https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist",
+    "desc": "Нужно играм, если они сообщают «не найден MSVCR100.dll» или «MSVCP100.dll»."
+  },
+  {
+    "name": "Visual C++ 2008",
+    "tab": "runtime",
+    "rec": true,
+    "category": "Visual C++ для большинства игр и программ",
+    "winget": "Microsoft.VCRedist.2008.x64;Microsoft.VCRedist.2008.x86",
+    "match": "Microsoft Visual C++ 2008",
+    "url": "https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist",
+    "desc": "Нужно старым играм, если они сообщают «не найден MSVCR90.dll» или «MSVCP90.dll»."
+  },
+  {
+    "name": "Visual C++ 2005",
+    "tab": "runtime",
+    "rec": true,
+    "category": "Visual C++ для большинства игр и программ",
+    "winget": "Microsoft.VCRedist.2005.x64;Microsoft.VCRedist.2005.x86",
+    "match": "Microsoft Visual C++ 2005",
+    "url": "https://learn.microsoft.com/cpp/windows/latest-supported-vc-redist",
+    "desc": "Нужно очень старым играм, если они сообщают «не найден MSVCR80.dll» или «MSVCP80.dll»."
+  },
+  {
+    "name": ".NET Desktop Runtime 8",
+    "tab": "runtime",
+    "rec": true,
+    "category": ".NET для программ на C#",
+    "winget": "Microsoft.DotNet.DesktopRuntime.8",
+    "match": "Microsoft Windows Desktop Runtime - 8.",
+    "url": "https://dotnet.microsoft.com/download",
+    "desc": "Ставьте, если программа при запуске просит «установить .NET»."
+  },
+  {
+    "name": ".NET Desktop Runtime 9",
+    "tab": "runtime",
+    "rec": false,
+    "category": ".NET для программ на C#",
+    "winget": "Microsoft.DotNet.DesktopRuntime.9",
+    "match": "Microsoft Windows Desktop Runtime - 9.",
+    "url": "https://dotnet.microsoft.com/download",
+    "desc": "Ставьте, если программа просит именно .NET 9."
+  },
+  {
+    "name": ".NET Desktop Runtime 10",
+    "tab": "runtime",
+    "rec": false,
+    "category": ".NET для программ на C#",
+    "winget": "Microsoft.DotNet.DesktopRuntime.10",
+    "match": "Microsoft Windows Desktop Runtime - 10.",
+    "url": "https://dotnet.microsoft.com/download",
+    "desc": "Ставьте, если программа просит именно .NET 10."
+  },
+  {
+    "name": "DirectX (старые компоненты)",
+    "tab": "runtime",
+    "rec": true,
+    "category": "Для игр",
+    "winget": "Microsoft.DirectX",
+    "match": "file:%SystemRoot%\\System32\\d3dx9_43.dll",
+    "url": "https://www.microsoft.com/download/details.aspx?id=35",
+    "desc": "Для старых игр, если они пишут «d3dx9_43.dll не найден» или «xinput1_3.dll не найден»."
+  },
+  {
+    "name": "XNA Framework 4.0",
+    "tab": "runtime",
+    "rec": false,
+    "category": "Для игр",
+    "winget": "Microsoft.XNARedist",
+    "match": "Microsoft XNA Framework",
+    "url": "https://www.microsoft.com/download/details.aspx?id=20914",
+    "desc": "Нужно некоторым инди-играм, например старой Terraria."
+  },
+  {
+    "name": "NVIDIA PhysX",
+    "tab": "runtime",
+    "rec": false,
+    "category": "Для игр",
+    "winget": "Nvidia.PhysX",
+    "match": "NVIDIA PhysX",
+    "url": "https://www.nvidia.com/drivers/physx/physx-9-21-0713-driver/",
+    "desc": "Физика в старых играх вроде Borderlands 2. Обычно уже стоит вместе с драйвером NVIDIA."
+  },
+  {
+    "name": "Java 8",
+    "tab": "runtime",
+    "rec": false,
+    "category": "Java для Minecraft",
+    "winget": "EclipseAdoptium.Temurin.8.JRE",
+    "match": "with Hotspot 8.",
+    "url": "https://adoptium.net/temurin/releases/?version=8",
+    "desc": "Для Minecraft 1.16.5 и старше. Новым версиям Minecraft она не подойдёт. Ставится рядом с другими Java и не мешает им."
+  },
+  {
+    "name": "Java 17",
+    "tab": "runtime",
+    "rec": false,
+    "category": "Java для Minecraft",
+    "winget": "EclipseAdoptium.Temurin.17.JRE",
+    "match": "with Hotspot 17.",
+    "url": "https://adoptium.net/temurin/releases/?version=17",
+    "desc": "Для Minecraft с 1.18 по 1.20.4. Установите её, если игра требует Java 17."
+  },
+  {
+    "name": "Java 21",
+    "tab": "runtime",
+    "rec": false,
+    "category": "Java для Minecraft",
+    "winget": "EclipseAdoptium.Temurin.21.JRE",
+    "match": "with Hotspot 21.",
+    "url": "https://adoptium.net/temurin/releases/?version=21",
+    "desc": "Подходит для Minecraft с 1.20.5 по 1.21.11, а также большинству программ, которым нужна Java."
+  },
+  {
+    "name": "Java 25",
+    "tab": "runtime",
+    "rec": false,
+    "category": "Java для Minecraft",
+    "winget": "EclipseAdoptium.Temurin.25.JRE",
+    "match": "with Hotspot 25.",
+    "url": "https://adoptium.net/temurin/releases/?version=25",
+    "desc": "Для Minecraft 26.1 и новее. Для старых версий Minecraft не подойдёт."
+  },
+  {
+    "name": "Microsoft Edge WebView2",
+    "tab": "runtime",
+    "rec": false,
+    "category": "Прочее",
+    "winget": "Microsoft.EdgeWebView2Runtime",
+    "match": "Microsoft Edge WebView2",
+    "url": "https://developer.microsoft.com/microsoft-edge/webview2/",
+    "desc": "Без него не открываются окна во многих программах. В Windows 11 обычно уже есть."
+  },
+  {
+    "name": "Фотографии",
+    "tab": "store",
+    "category": "Системные приложения",
+    "winget": "9WZDNCRFJBH4",
+    "source": "msstore",
+    "match": "appx:Microsoft.Windows.Photos",
+    "url": "ms-windows-store://pdp/?ProductId=9WZDNCRFJBH4",
+    "desc": "Просмотр и простое редактирование фото и видео."
+  },
+  {
+    "name": "Калькулятор",
+    "tab": "store",
+    "category": "Системные приложения",
+    "winget": "9WZDNCRFHVN5",
+    "source": "msstore",
+    "match": "appx:Microsoft.WindowsCalculator",
+    "url": "ms-windows-store://pdp/?ProductId=9WZDNCRFHVN5",
+    "desc": "Обычный, инженерный и программистский калькулятор."
+  },
+  {
+    "name": "Блокнот",
+    "tab": "store",
+    "category": "Системные приложения",
+    "winget": "9MSMLRH6LZF3",
+    "source": "msstore",
+    "match": "appx:Microsoft.WindowsNotepad",
+    "url": "ms-windows-store://pdp/?ProductId=9MSMLRH6LZF3",
+    "desc": "Простой текстовый редактор."
+  },
+  {
+    "name": "Paint",
+    "tab": "store",
+    "category": "Системные приложения",
+    "winget": "9PCFS5B6T72H",
+    "source": "msstore",
+    "match": "appx:Microsoft.Paint",
+    "url": "ms-windows-store://pdp/?ProductId=9PCFS5B6T72H",
+    "desc": "Рисование и простая правка картинок."
+  },
+  {
+    "name": "Ножницы",
+    "tab": "store",
+    "category": "Системные приложения",
+    "winget": "9MZ95KL8MR0L",
+    "source": "msstore",
+    "match": "appx:Microsoft.ScreenSketch",
+    "url": "ms-windows-store://pdp/?ProductId=9MZ95KL8MR0L",
+    "desc": "Скриншоты и запись экрана (Win+Shift+S)."
+  },
+  {
+    "name": "Камера",
+    "tab": "store",
+    "category": "Системные приложения",
+    "winget": "9WZDNCRFJBBG",
+    "source": "msstore",
+    "match": "appx:Microsoft.WindowsCamera",
+    "url": "ms-windows-store://pdp/?ProductId=9WZDNCRFJBBG",
+    "desc": "Фото и видео с веб-камеры."
+  },
+  {
+    "name": "Часы",
+    "tab": "store",
+    "category": "Системные приложения",
+    "winget": "9WZDNCRFJ3PR",
+    "source": "msstore",
+    "match": "appx:Microsoft.WindowsAlarms",
+    "url": "ms-windows-store://pdp/?ProductId=9WZDNCRFJ3PR",
+    "desc": "Будильник, таймер, секундомер и фокусировка."
+  },
+  {
+    "name": "Звукозапись",
+    "tab": "store",
+    "category": "Системные приложения",
+    "winget": "9WZDNCRFHWKN",
+    "source": "msstore",
+    "match": "appx:Microsoft.WindowsSoundRecorder",
+    "url": "ms-windows-store://pdp/?ProductId=9WZDNCRFHWKN",
+    "desc": "Запись звука с микрофона."
+  },
+  {
+    "name": "Медиаплеер",
+    "tab": "store",
+    "category": "Системные приложения",
+    "winget": "9WZDNCRFJ3PT",
+    "source": "msstore",
+    "match": "appx:Microsoft.ZuneMusic",
+    "url": "ms-windows-store://pdp/?ProductId=9WZDNCRFJ3PT",
+    "desc": "Проигрыватель музыки и видео Windows."
+  },
+  {
+    "name": "Записки",
+    "tab": "store",
+    "category": "Системные приложения",
+    "winget": "9NBLGGH4QGHW",
+    "source": "msstore",
+    "match": "appx:Microsoft.MicrosoftStickyNotes",
+    "url": "ms-windows-store://pdp/?ProductId=9NBLGGH4QGHW",
+    "desc": "Заметки-стикеры на рабочем столе."
+  },
+  {
+    "name": "Терминал",
+    "tab": "store",
+    "category": "Системные приложения",
+    "winget": "9N0DX20HK701",
+    "source": "msstore",
+    "match": "appx:Microsoft.WindowsTerminal",
+    "url": "ms-windows-store://pdp/?ProductId=9N0DX20HK701",
+    "desc": "Командная строка во вкладках."
+  },
+  {
+    "name": "Связь с телефоном",
+    "tab": "store",
+    "category": "Системные приложения",
+    "winget": "9NMPJ99VJBWV",
+    "source": "msstore",
+    "match": "appx:Microsoft.YourPhone",
+    "url": "ms-windows-store://pdp/?ProductId=9NMPJ99VJBWV",
+    "desc": "Звонки, сообщения и фото с телефона на компьютере."
+  },
+  {
+    "name": "Xbox",
+    "tab": "store",
+    "category": "Системные приложения",
+    "winget": "9MV0B5HZVK9Z",
+    "source": "msstore",
+    "match": "appx:Microsoft.GamingApp",
+    "url": "ms-windows-store://pdp/?ProductId=9MV0B5HZVK9Z",
+    "desc": "Приложение Xbox и Game Pass для компьютера."
+  },
+  {
+    "name": "Outlook",
+    "tab": "store",
+    "category": "Системные приложения",
+    "winget": "9NRX63209R7B",
+    "source": "msstore",
+    "match": "appx:Microsoft.OutlookForWindows",
+    "url": "ms-windows-store://pdp/?ProductId=9NRX63209R7B",
+    "desc": "Почта и календарь Microsoft."
+  },
+  {
+    "name": "Быстрая помощь",
+    "tab": "store",
+    "category": "Системные приложения",
+    "winget": "9P7BP5VNWKX5",
+    "source": "msstore",
+    "match": "appx:MicrosoftCorporationII.QuickAssist",
+    "url": "ms-windows-store://pdp/?ProductId=9P7BP5VNWKX5",
+    "desc": "Удалённая помощь: друг может подключиться к вашему экрану."
+  },
+  {
+    "name": "Погода",
+    "tab": "store",
+    "category": "Предустановленные приложения",
+    "winget": "9WZDNCRFJ3Q2",
+    "source": "msstore",
+    "match": "appx:Microsoft.BingWeather",
+    "url": "ms-windows-store://pdp/?ProductId=9WZDNCRFJ3Q2",
+    "desc": "Прогноз погоды от MSN."
+  },
+  {
+    "name": "Новости",
+    "tab": "store",
+    "category": "Предустановленные приложения",
+    "winget": "9WZDNCRFHVFW",
+    "source": "msstore",
+    "match": "appx:Microsoft.BingNews",
+    "url": "ms-windows-store://pdp/?ProductId=9WZDNCRFHVFW",
+    "desc": "Лента новостей Microsoft."
+  },
+  {
+    "name": "Пасьянсы (Solitaire Collection)",
+    "tab": "store",
+    "category": "Предустановленные приложения",
+    "winget": "9WZDNCRFHWD2",
+    "source": "msstore",
+    "match": "appx:Microsoft.MicrosoftSolitaireCollection",
+    "url": "ms-windows-store://pdp/?ProductId=9WZDNCRFHWD2",
+    "desc": "Косынка, Паук, Свободная ячейка и другие пасьянсы."
+  },
+  {
+    "name": "Карты",
+    "tab": "store",
+    "category": "Предустановленные приложения",
+    "winget": "9WZDNCRDTBVB",
+    "source": "msstore",
+    "match": "appx:Microsoft.WindowsMaps",
+    "url": "ms-windows-store://pdp/?ProductId=9WZDNCRDTBVB",
+    "desc": "Карты Windows с офлайн-режимом."
+  },
+  {
+    "name": "Кино и ТВ",
+    "tab": "store",
+    "category": "Предустановленные приложения",
+    "winget": "9WZDNCRFJ3P2",
+    "source": "msstore",
+    "match": "appx:Microsoft.ZuneVideo",
+    "url": "ms-windows-store://pdp/?ProductId=9WZDNCRFJ3P2",
+    "desc": "Проигрыватель видео от Microsoft."
+  },
+  {
+    "name": "Microsoft To Do",
+    "tab": "store",
+    "category": "Предустановленные приложения",
+    "winget": "9NBLGGH5R558",
+    "source": "msstore",
+    "match": "appx:Microsoft.Todos",
+    "url": "ms-windows-store://pdp/?ProductId=9NBLGGH5R558",
+    "desc": "Списки дел и напоминания."
+  },
+  {
+    "name": "Microsoft 365 (Office)",
+    "tab": "store",
+    "category": "Предустановленные приложения",
+    "winget": "9WZDNCRD29V9",
+    "source": "msstore",
+    "match": "appx:Microsoft.MicrosoftOfficeHub",
+    "url": "ms-windows-store://pdp/?ProductId=9WZDNCRD29V9",
+    "desc": "Отсюда открываются Word, Excel и другие программы Office."
+  },
+  {
+    "name": "Microsoft Teams",
+    "tab": "store",
+    "category": "Предустановленные приложения",
+    "winget": "XP8BT8DW290MPQ",
+    "source": "msstore",
+    "match": "appx:MSTeams|MicrosoftTeams",
+    "url": "ms-windows-store://pdp/?ProductId=XP8BT8DW290MPQ",
+    "desc": "Чаты и видеозвонки Microsoft."
+  },
+  {
+    "name": "Clipchamp",
+    "tab": "store",
+    "category": "Предустановленные приложения",
+    "winget": "9P1J8S7CCWWT",
+    "source": "msstore",
+    "match": "appx:Clipchamp.Clipchamp",
+    "url": "ms-windows-store://pdp/?ProductId=9P1J8S7CCWWT",
+    "desc": "Простой видеоредактор."
+  },
+  {
+    "name": "Power Automate",
+    "tab": "store",
+    "category": "Предустановленные приложения",
+    "winget": "9NFTCH6J7FHV",
+    "source": "msstore",
+    "match": "appx:Microsoft.PowerAutomateDesktop",
+    "url": "ms-windows-store://pdp/?ProductId=9NFTCH6J7FHV",
+    "desc": "Автоматизация повторяющихся задач. Для опытных."
+  },
+  {
+    "name": "Техническая поддержка (Get Help)",
+    "tab": "store",
+    "category": "Предустановленные приложения",
+    "winget": "9PKDZBMV1H3T",
+    "source": "msstore",
+    "match": "appx:Microsoft.GetHelp",
+    "url": "ms-windows-store://pdp/?ProductId=9PKDZBMV1H3T",
+    "desc": "Справка и помощник Microsoft."
+  },
+  {
+    "name": "Центр отзывов",
+    "tab": "store",
+    "category": "Предустановленные приложения",
+    "winget": "9NBLGGH4R32N",
+    "source": "msstore",
+    "match": "appx:Microsoft.WindowsFeedbackHub",
+    "url": "ms-windows-store://pdp/?ProductId=9NBLGGH4R32N",
+    "desc": "Отправка отзывов и ошибок в Microsoft."
+  },
+  {
+    "name": "Microsoft Copilot",
+    "tab": "store",
+    "category": "Предустановленные приложения",
+    "winget": "XP9CXNGPPJ97XX",
+    "source": "msstore",
+    "match": "appx:Microsoft.Copilot",
+    "url": "ms-windows-store://pdp/?ProductId=XP9CXNGPPJ97XX",
+    "desc": "ИИ-помощник Microsoft."
+  },
+  {
+    "name": "Microsoft Journal",
+    "tab": "store",
+    "category": "Предустановленные приложения",
+    "winget": "9N318R854RHH",
+    "source": "msstore",
+    "match": "appx:Microsoft.MicrosoftJournal",
+    "url": "ms-windows-store://pdp/?ProductId=9N318R854RHH",
+    "desc": "Рукописные заметки для пера."
+  },
+  {
+    "name": "Xbox Game Bar",
+    "tab": "store",
+    "category": "Предустановленные приложения",
+    "winget": "9NZKPSTSNW4P",
+    "source": "msstore",
+    "match": "appx:Microsoft.XboxGamingOverlay",
+    "url": "ms-windows-store://pdp/?ProductId=9NZKPSTSNW4P",
+    "desc": "Панель по Win+G: запись экрана и счётчик кадров."
+  },
+  {
+    "name": "Виджеты",
+    "tab": "store",
+    "category": "Предустановленные приложения",
+    "winget": "9MSSGKG348SP",
+    "source": "msstore",
+    "match": "appx:MicrosoftWindows.Client.WebExperience",
+    "url": "ms-windows-store://pdp/?ProductId=9MSSGKG348SP",
+    "desc": "Погода и новости на панели задач."
+  },
+  {
+    "name": "Расширение HEIF",
+    "tab": "store",
+    "category": "Расширения для фото и видео",
+    "winget": "9PMMSR1CGPWG",
+    "source": "msstore",
+    "match": "appx:Microsoft.HEIFImageExtension",
+    "url": "ms-windows-store://pdp/?ProductId=9PMMSR1CGPWG",
+    "desc": "Открывает фото .heic с iPhone."
+  },
+  {
+    "name": "Расширение WebP",
+    "tab": "store",
+    "category": "Расширения для фото и видео",
+    "winget": "9PG2DK419DRG",
+    "source": "msstore",
+    "match": "appx:Microsoft.WebpImageExtension",
+    "url": "ms-windows-store://pdp/?ProductId=9PG2DK419DRG",
+    "desc": "Открывает картинки .webp из интернета."
+  },
+  {
+    "name": "Расширение RAW",
+    "tab": "store",
+    "category": "Расширения для фото и видео",
+    "winget": "9NCTDW2W1BH8",
+    "source": "msstore",
+    "match": "appx:Microsoft.RawImageExtension",
+    "url": "ms-windows-store://pdp/?ProductId=9NCTDW2W1BH8",
+    "desc": "Открывает RAW-снимки с фотоаппаратов."
+  },
+  {
+    "name": "Расширение AV1",
+    "tab": "store",
+    "category": "Расширения для фото и видео",
+    "winget": "9MVZQVXJBQ9V",
+    "source": "msstore",
+    "match": "appx:Microsoft.AV1VideoExtension",
+    "url": "ms-windows-store://pdp/?ProductId=9MVZQVXJBQ9V",
+    "desc": "Чтобы открывались видео в формате AV1."
+  },
+  {
+    "name": "Расширение VP9",
+    "tab": "store",
+    "category": "Расширения для фото и видео",
+    "winget": "9N4D0MSMP0PT",
+    "source": "msstore",
+    "match": "appx:Microsoft.VP9VideoExtensions",
+    "url": "ms-windows-store://pdp/?ProductId=9N4D0MSMP0PT",
+    "desc": "Чтобы открывались видео в формате VP9."
+  },
+  {
+    "name": "Расширение MPEG-2",
+    "tab": "store",
+    "category": "Расширения для фото и видео",
+    "winget": "9N95Q1ZZPMH4",
+    "source": "msstore",
+    "match": "appx:Microsoft.MPEG2VideoExtension",
+    "url": "ms-windows-store://pdp/?ProductId=9N95Q1ZZPMH4",
+    "desc": "Чтобы открывались старые видео с DVD."
+  },
+  {
+    "name": "Веб-расширения мультимедиа",
+    "tab": "store",
+    "category": "Расширения для фото и видео",
+    "winget": "9N5TDP8VCMHS",
+    "source": "msstore",
+    "match": "appx:Microsoft.WebMediaExtensions",
+    "url": "ms-windows-store://pdp/?ProductId=9N5TDP8VCMHS",
+    "desc": "Чтобы открывались редкие аудио и видео из интернета."
+  }
+]

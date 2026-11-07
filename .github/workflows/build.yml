@@ -1,0 +1,144 @@
+# Сборка Merno и (после одобрения SignPath Foundation) подпись выпуска.
+# Каждый push и PR: сборка, тесты, проверки, без подписи.
+# Запуск вручную (Actions → Build → Run workflow) с sign = true: подпись и готовые файлы для выпуска
+# (подписывается только ветка main).
+# Сторонние действия закреплены по SHA коммита, в комментарии — версия.
+name: Build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      sign:
+        description: "Подписать через SignPath"
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  build:
+    runs-on: windows-2022
+    env:
+      SIGN: ${{ github.event_name == 'workflow_dispatch' && inputs.sign && github.ref == 'refs/heads/main' }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73 # v6.1.0
+        with:
+          global-json-file: global.json
+
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+
+      - name: Inno Setup
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe")) { choco install innosetup -y --no-progress }
+
+      - name: Проверки (версия, JSON, каталог)
+        shell: pwsh
+        run: ./tools/check.ps1 -NoBuild -NoTests
+
+      - name: Тесты
+        run: |
+          dotnet restore Merno.csproj
+          dotnet test Merno.Tests/Merno.Tests.csproj -c Release
+
+      - name: Сборка программы, запускателя и портативной
+        run: |
+          python tools/native/get-zig.py
+          python tools/native/package.py binaries
+          python tools/native/smoke.py
+
+      # ---- подпись 1: три exe (запускатель, программа, портативная) ----
+      - name: Файлы на подпись
+        if: env.SIGN == 'true'
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory sign/launcher, sign/app, sign/portable | Out-Null
+          Copy-Item obj/installed-kit/Merno.exe sign/launcher/
+          Copy-Item obj/installed-kit/payload/Merno.exe sign/app/
+          Copy-Item obj/portable/Merno.exe sign/portable/
+
+      - id: unsigned-binaries
+        if: env.SIGN == 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          retention-days: 7
+          name: unsigned-binaries
+          path: sign/
+
+      - name: Подпись exe (SignPath)
+        if: env.SIGN == 'true'
+        uses: signpath/github-action-submit-signing-request@c92b958760219087e01f8d67a1669ed57afe2627 # v2
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: merno
+          signing-policy-slug: release-signing
+          artifact-configuration-slug: binaries
+          github-artifact-id: ${{ steps.unsigned-binaries.outputs.artifact-id }}
+          wait-for-completion: true
+          output-artifact-directory: signed
+
+      - name: Подписанные exe на место
+        if: env.SIGN == 'true'
+        shell: pwsh
+        run: |
+          Copy-Item signed/launcher/Merno.exe obj/installed-kit/ -Force
+          Copy-Item signed/app/Merno.exe obj/installed-kit/payload/ -Force
+          Copy-Item signed/portable/Merno.exe obj/portable/ -Force
+
+      - name: Установщик и архивы
+        run: python tools/native/package.py installer
+
+      # ---- подпись 2: установщик ----
+      - id: unsigned-setup
+        if: env.SIGN == 'true'
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          retention-days: 7
+          name: unsigned-setup
+          path: dist/Merno-Setup.exe
+
+      - name: Подпись установщика (SignPath)
+        if: env.SIGN == 'true'
+        uses: signpath/github-action-submit-signing-request@c92b958760219087e01f8d67a1669ed57afe2627 # v2
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: merno
+          signing-policy-slug: release-signing
+          artifact-configuration-slug: installer
+          github-artifact-id: ${{ steps.unsigned-setup.outputs.artifact-id }}
+          wait-for-completion: true
+          output-artifact-directory: signed-setup
+
+      - name: Комплект обновления с подписанным установщиком
+        if: env.SIGN == 'true'
+        shell: pwsh
+        run: |
+          Copy-Item signed-setup/Merno-Setup.exe dist/Merno-Setup.exe -Force
+          New-Item -ItemType Directory kit | Out-Null
+          Copy-Item dist/Merno-Setup.exe kit/Merno.Setup.exe
+          Remove-Item dist/Merno-Setup.zip
+          Compress-Archive -Path kit/Merno.Setup.exe -DestinationPath dist/Merno-Setup.zip
+          foreach ($f in 'dist/Merno-Setup.exe', 'obj/installed-kit/payload/Merno.exe', 'obj/installed-kit/Merno.exe', 'obj/portable/Merno.exe') {
+            $s = Get-AuthenticodeSignature $f
+            if ($s.Status -ne 'Valid') { throw "$f не подписан: $($s.Status)" }
+          }
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          retention-days: 7
+          name: ${{ env.SIGN == 'true' && 'Merno-signed' || 'Merno-unsigned' }}
+          path: |
+            dist/Merno-Setup.exe
+            dist/Merno-Portable.zip
+            dist/Merno-Setup.zip
