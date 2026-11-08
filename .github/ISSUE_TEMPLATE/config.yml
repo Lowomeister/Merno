@@ -1,5 +1,5 @@
 # Перед новым обращением на GitHub показываем, где ответят быстрее.
-blank_issues_enabled: true
+blank_issues_enabled: false
 contact_links:
   - name: Написать в Telegram
     url: https://t.me/Lowomebot?start=merno

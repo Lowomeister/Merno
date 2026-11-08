@@ -1,0 +1,16 @@
+name: Идея
+description: Предложить новое или улучшить то, что есть
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: Что предлагаете
+      placeholder: Показывать в «Автозагрузке», сколько секунд добавляет каждая программа.
+    validations:
+      required: true
+  - type: textarea
+    id: why
+    attributes:
+      label: Зачем это нужно
+      description: Какую задачу это решит. Так проще понять, как сделать лучше.

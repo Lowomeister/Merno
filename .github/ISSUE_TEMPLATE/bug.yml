@@ -1,0 +1,43 @@
+name: Ошибка
+description: Что-то работает не так, как должно
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Спасибо, что сообщили. Обращение увидят все — не пишите сюда имя, почту, ключи и пароли.
+        Об уязвимостях пишите не сюда, а через «Сообщить об уязвимости».
+  - type: textarea
+    id: what
+    attributes:
+      label: Что случилось
+      description: Коротко. Если было сообщение об ошибке — перепишите его текст.
+      placeholder: Нажал «Очистить», Merno написала «Не получилось» и ничего не удалила.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Что вы делали перед этим
+      description: Раздел Merno и кнопки по порядку, чтобы мы могли повторить.
+      placeholder: |
+        1. Открыл «Очистку»
+        2. Отметил «Временные файлы»
+        3. Нажал «Очистить»
+  - type: textarea
+    id: expected
+    attributes:
+      label: Что ожидали
+  - type: textarea
+    id: info
+    attributes:
+      label: Сведения из Merno
+      description: В Merno — «Связаться с нами» → «Скопировать сведения», и вставьте сюда. Там версии Merno и Windows и последние ошибки, без имён и путей.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: screens
+    attributes:
+      label: Снимки экрана
+      description: Если есть — перетащите сюда.

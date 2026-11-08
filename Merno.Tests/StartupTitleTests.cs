@@ -14,6 +14,33 @@ public class StartupTitleTests
 {
     static string Sys(string file) => Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), file);
 
+    [Theory]
+    [InlineData("GoogleChromeAutoLaunch_27E7DFBEDA387BCDDF97FC8C07B06710", "Google Chrome")]
+    [InlineData("v2rayNAutoRun_58c393267ca660edfc87e8f73d442bb7", "v2rayN")]
+    [InlineData("OneDrive Reporting Task-S-1-5-21-1111111111-2222222222-3333333333-1001", "OneDrive Reporting")]
+    [InlineData("MicrosoftEdgeUpdateTaskMachineCore{A1B2C3D4-1111-2222-3333-444455556666}", "Microsoft Edge Update Task Machine Core")]
+    [InlineData("MSICenter", "MSI Center")]
+    [InlineData("MyAppAutostart", "My App")]
+    [InlineData("Steam", "Steam")]
+    [InlineData("Discord", "Discord")]
+    [InlineData("Radmin VPN", "Radmin VPN")]
+    [InlineData("TaskbarX", "TaskbarX")]
+    public void RawKeyBecomesReadableName(string key, string expected) => Assert.Equal(expected, Startup.NameFromKey(key));
+
+    [Theory]
+    [InlineData("AutoRun")]
+    [InlineData("_0123456789abcdef0123")]
+    [InlineData("")]
+    [InlineData(null)]
+    public void NothingReadableLeftGivesNull(string key) => Assert.Null(Startup.NameFromKey(key));
+
+    [Theory]
+    [InlineData("Discord - https://discord.com/", "Discord")]
+    [InlineData("Some Tool (https://example.org)", "Some Tool")]
+    [InlineData("Radmin VPN", "Radmin VPN")]
+    [InlineData("Помощник www.example.ru", "Помощник")]
+    public void DescriptionLosesWebAddress(string text, string expected) => Assert.Equal(expected, Startup.CleanDescription(text));
+
     [Fact]
     public void KnownFileGetsRussianTitleOnlyFromSystemFolders()
     {

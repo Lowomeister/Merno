@@ -281,6 +281,50 @@ public static class Startup
         ["9426MICRO-STARINTERNATION.MSICenter_kzh8wxbdkxb8p"] = "MSI Center",
     };
 
+    static readonly System.Text.RegularExpressions.Regex UrlInText = new(
+        @"\s*[-–—|(]?\s*(?:https?://|www\.)\S+\)?", System.Text.RegularExpressions.RegexOptions.IgnoreCase);
+
+    /// <summary>Описание exe без адреса сайта: «Discord - https://discord.com/» → «Discord».</summary>
+    internal static string CleanDescription(string text)
+    {
+        if (string.IsNullOrWhiteSpace(text)) return "";
+        return UrlInText.Replace(text, "").Trim(' ', '-', '–', '—', '|', ',', ':');
+    }
+
+    static readonly System.Text.RegularExpressions.Regex KeyTail = new(
+        @"(?:[\s_-]*\{[0-9A-Fa-f-]{32,36}\}|[\s_-]+[0-9A-Fa-f]{16,}|[\s_-]*S-1-5-[\d-]+)\s*$", System.Text.RegularExpressions.RegexOptions.Compiled);
+    static readonly System.Text.RegularExpressions.Regex KeyAuto = new(
+        @"[\s_-]*Auto[\s_-]?(?:Run|Launch|Start)(?![a-z])", System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Compiled);
+    static readonly System.Text.RegularExpressions.Regex KeyService = new(
+        @"[\s_-]*(?:Task|Startup|Logon)\s*$", System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Compiled);
+    static readonly System.Text.RegularExpressions.Regex CamelBreak = new(
+        @"(?<=[a-z0-9])(?=[A-Z][a-z])|(?<=[A-Z])(?=[A-Z][a-z])", System.Text.RegularExpressions.RegexOptions.Compiled);   // «v2rayN» не делится
+
+    /// <summary>
+    /// Понятное имя из названия записи Run или задачи, когда у exe нет описания:
+    /// без хеша, GUID и SID в конце, без служебных AutoRun/AutoLaunch/Task/Startup, слитные слова — раздельно.
+    /// «GoogleChromeAutoLaunch_27E7…» → «Google Chrome», «OneDrive Reporting Task-S-1-5-21-…» → «OneDrive Reporting».
+    /// null — ничего разумного не осталось.
+    /// </summary>
+    internal static string NameFromKey(string key)
+    {
+        if (string.IsNullOrWhiteSpace(key)) return null;
+        string s = key.Trim();
+        for (int i = 0; i < 3; i++)
+        {
+            string before = s;
+            s = KeyTail.Replace(s, "");
+            s = KeyAuto.Replace(s, "");
+            s = KeyService.Replace(s, "");
+            if (s == before) break;
+        }
+        s = s.Replace('_', ' ').Trim(' ', '-', '.');
+        // слитное имя («GoogleChrome», «MSICenter») делим на слова; где пробелы уже есть («OneDrive Reporting») — не трогаем
+        if (!s.Contains(' ')) s = CamelBreak.Replace(s, " ");
+        s = System.Text.RegularExpressions.Regex.Replace(s, @"\s{2,}", " ").Trim();
+        return s.Length >= 2 ? s : null;
+    }
+
     /// <summary>Известное русское название записи. Файлу оно даётся, только если тот лежит в папке Windows или Program Files:
     /// строку в HKCU Run может записать любая программа, и чужой exe с тем же именем не должен выглядеть системным.</summary>
     internal static string KnownTitle(StartupItem it)
@@ -405,6 +449,7 @@ public static class Startup
             var d = System.Diagnostics.FileVersionInfo.GetVersionInfo(exe);
             var t = (d.FileDescription ?? "").Trim();
             if (t.Length < 3) t = (d.ProductName ?? "").Trim();
+            t = CleanDescription(t);
             return t.Length >= 3 ? t : null;
         }
         catch { return null; }
@@ -505,6 +550,12 @@ public static class Startup
         ResolveFiles(res);
         // известные записи — по-русски; после ResolveFiles, он сам дописывает Title из exe
         foreach (var x in res) { var t = KnownTitle(x); if (t != null) x.Title = t; }
+        // описания нет (или файла уже нет): вместо «GoogleChromeAutoLaunch_27E7…» — «Google Chrome»; сырое имя остаётся в подсказке
+        foreach (var x in res.Where(x => x.Title == null && x.Kind is StartKind.Registry or StartKind.Task))
+        {
+            var n = NameFromKey(x.Name);
+            if (n != null && n != x.Name) x.Title = n;
+        }
         return res.OrderBy(x => x.Protected).ThenBy(x => x.Title ?? x.Name, StringComparer.CurrentCultureIgnoreCase).ToList();
     }
 
