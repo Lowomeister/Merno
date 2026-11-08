@@ -511,6 +511,9 @@ public partial class MainWindow
         if (irreversible.Count > 0 && !Ask("Эти действия нельзя отменить кнопкой отката:\n\n" + string.Join("\n", irreversible.Select(t => "• " + t.Name)) + "\n\nПродолжить?", "Merno", MessageBoxImage.Warning, "Продолжить")) return;
         var risky = sel.Where(t => t.Risk == 2).ToList();
         if (risky.Count > 0 && !Ask("Эти настройки могут сломать Windows:\n\n" + string.Join("\n", risky.Select(r => "• " + r.Name)) + "\n\nВключить всё равно?", "Merno", MessageBoxImage.Warning, "Включить")) return;
+        // второе подтверждение для самых опасных (отключение запроса UAC): красное окно, по умолчанию — «Отмена»
+        foreach (var t in sel.Where(t => t.Confirm != null))
+            if (!MernoDialog("Точно включить «" + t.Name + "»?", "Вы уверены?", "Да, включить", "Отмена", true, B("Bad"), t.Confirm)) return;
         // точка восстановления — только если среди изменений есть «Осторожно»/«Риск»: обычные настройки и так
         // откатываются из копии Merno, а точка — это минута ожидания и место на диске
         bool rp = TweakRP.IsChecked == true && sel.Any(t => t.Risk >= 1), rep = TweakReport.IsChecked == true;

@@ -25,6 +25,17 @@ public class TweakCatalogTests
     }
 
     [Fact]
+    public void Отключение_запроса_UAC_спрашивает_дважды_и_не_входит_в_режимы()
+    {
+        var all = Catalog.All();
+        var uac = all.Single(t => t.Id == "uac_quiet");
+        Assert.Equal(2, uac.Risk);
+        Assert.False(string.IsNullOrWhiteSpace(uac.Confirm));
+        foreach (var mode in new[] { "rec", "gaming", "minimal" })
+            Assert.DoesNotContain("uac_quiet", Catalog.Preset(mode, all));
+    }
+
+    [Fact]
     public void Номера_настроек_не_повторяются()
     {
         var dup = Catalog.All().GroupBy(t => t.Id).Where(g => g.Count() > 1).Select(g => g.Key);

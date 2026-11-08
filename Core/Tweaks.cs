@@ -45,6 +45,8 @@ public class Tweak
     /// <summary>false — твик удаляет приложения, автоматически вернуть нельзя.</summary>
     public bool CanRevert = true;
     public int Risk; // 0 — безопасно, 1 — осторожно, 2 — риск
+    /// <summary>Отдельное второе подтверждение перед включением (после общего «могут сломать Windows»). null — не нужно.</summary>
+    public string Confirm;
     public List<RegOp> Reg = new();
     public List<(string Svc, int Start)> Svc = new();
     public List<string> Tasks = new();
@@ -545,6 +547,7 @@ foreach ($a in @({list})) {{
             Name="Не спрашивать разрешение при запуске программ",
             Desc="Вирус тоже сможет менять всё без спроса.",
             Hint="Пропадёт окно «Разрешить этому приложению вносить изменения на вашем устройстве?».",
+            Confirm="Любая программа, в том числе вирус, сможет получить права администратора без вашего разрешения: менять систему, отключать антивирус, ставить что угодно. Окно Windows с вопросом «Разрешить?» больше не появится.",
             Reg = { D(LM, @"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System", "ConsentPromptBehaviorAdmin", 0),
                     D(LM, @"SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System", "PromptOnSecureDesktop", 0) } },
         new Tweak { Id="smartscreen_off", Cat="Защита Windows", Risk=2,
