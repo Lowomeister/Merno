@@ -12,7 +12,7 @@
     <StartupObject>Merno.Program</StartupObject>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Assets\app.ico</ApplicationIcon>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Product>Merno</Product>
     <Description>Оптимизатор Windows 10/11</Description>
     <Copyright>Copyright © 2026 Merno contributors</Copyright>

@@ -1,6 +1,6 @@
 [
   {
-    "version": "next",
+    "version": "1.0.1",
     "items": [
       { "text": "Сообщить об ошибке теперь можно и на GitHub: «Связаться с нами» → «Сообщить на GitHub».", "page": "PageContact", "target": "FbGitHub" },
       { "text": "Перед удалением Microsoft Edge Merno сама создаёт точку восстановления." },
