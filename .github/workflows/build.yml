@@ -48,17 +48,25 @@ jobs:
           # закреплённая версия с проверкой SHA-256 (та же, что на ПК сборки); хеш сверяется и у файла из кэша
           $url = 'https://github.com/jrsoftware/issrc/releases/download/is-6_7_3/innosetup-6.7.3.exe'
           $sha = '9C73C3BAE7ED48D44112A0F48E66742C00090BDB5BEF71D9D3C056C66E97B732'
-          $dir = Join-Path $env:RUNNER_TEMP 'inno'; New-Item -ItemType Directory -Force $dir | Out-Null
-          $exe = Join-Path $dir 'innosetup-6.7.3.exe'
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          $dir = Join-Path $env:RUNNER_TEMP 'inno'; $exe = Join-Path $dir 'innosetup-6.7.3.exe'
           if ((Test-Path $exe) -and (Get-FileHash $exe -Algorithm SHA256).Hash -ne $sha) { Remove-Item $exe }
-          for ($i = 1; -not (Test-Path $exe); $i++) {
+          for ($i = 1; -not (Test-Path $exe) -and $i -le 6; $i++) {
+            New-Item -ItemType Directory -Force $dir | Out-Null
             try { Invoke-WebRequest $url -OutFile $exe }
-            catch { Remove-Item $exe -ErrorAction SilentlyContinue; if ($i -ge 8) { throw }; Write-Host "Inno Setup: попытка $i не удалась ($($_.Exception.Message)), ждём"; Start-Sleep (15 * $i) }
+            catch { Remove-Item $exe -ErrorAction SilentlyContinue; Write-Host "Inno Setup: попытка $i не удалась ($($_.Exception.Message))"; if ($i -lt 6) { Start-Sleep (10 * $i) } }
+          }
+          if (-not (Test-Path $exe)) {
+            # пустую папку в кэш не кладём; запасной путь — Inno Setup 6 из образа GitHub (как до закрепления версии)
+            Remove-Item $dir -Recurse -Force -ErrorAction SilentlyContinue
+            if (-not (Test-Path $iscc)) { throw 'Inno Setup: не скачался, и в образе его нет' }
+            Write-Host "::warning::Inno Setup 6.7.3 не скачался (GitHub не ответил), собираю Inno Setup из образа: $((Get-Item $iscc).VersionInfo.ProductVersion)"
+            exit 0
           }
           if ((Get-FileHash $exe -Algorithm SHA256).Hash -ne $sha) { throw 'Inno Setup: SHA-256 не совпал' }
           $p = Start-Process $exe -ArgumentList '/VERYSILENT','/SUPPRESSMSGBOXES','/NORESTART','/SP-','/ALLUSERS' -Wait -PassThru
           if ($p.ExitCode -ne 0) { throw "Inno Setup: код $($p.ExitCode)" }
-          if (-not (Test-Path "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe")) { throw 'Inno Setup: ISCC.exe не найден' }
+          if (-not (Test-Path $iscc)) { throw 'Inno Setup: ISCC.exe не найден' }
 
       - name: Проверки (версия, JSON, каталог)
         shell: pwsh
