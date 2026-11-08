@@ -72,6 +72,11 @@ build.bat
 | `tools/` | установщик, выпуск на GitHub, проверки, служебные скрипты |
 | `docs/` | картинки для README и уведомления о лицензиях .NET |
 
+## Участники (Contributors)
+
+- [Lowomeister](https://github.com/Lowomeister) — разработчик
+- [Rub1nchik](https://github.com/Rub1nchik702) — компаньон
+
 ## Лицензия
 
 Merno — бесплатный оптимизатор Windows 10 и 11.

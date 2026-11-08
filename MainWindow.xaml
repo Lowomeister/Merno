@@ -1087,7 +1087,7 @@
                             <Button x:Name="BtnWhatsNew" Content="Что нового" Style="{StaticResource Ghost}" HorizontalAlignment="Stretch" Margin="0,6,0,0"/>
                             <!-- авторы и лицензия -->
                             <Border Height="1" Background="{StaticResource Line}" Margin="0,14,0,12"/>
-                            <TextBlock Style="{StaticResource SubText}" TextWrapping="Wrap" FontSize="12.5" Text="Сделал Lowomeister."/>
+                            <TextBlock Style="{StaticResource SubText}" TextWrapping="Wrap" FontSize="12.5" Text="Сделали Lowomeister и Rub1nchik."/>
                             <TextBlock Style="{StaticResource SubText}" TextWrapping="Wrap" FontSize="12.5" Margin="0,4,0,0" Text="Copyright © 2026 Merno contributors. Бесплатно. Лицензия GNU GPL 3.0 или новее, без гарантий. Название и значок Merno в неё не входят."/>
                             <Button x:Name="BtnLicense" Content="Текст лицензии" Style="{StaticResource Ghost}" HorizontalAlignment="Stretch" Margin="0,6,0,0"/>
                         </StackPanel>
