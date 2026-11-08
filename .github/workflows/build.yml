@@ -36,17 +36,24 @@ jobs:
         with:
           python-version: "3.12"
 
+      # установщик Inno Setup — из кэша; GitHub часто отвечает 504 на скачивание выпуска
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ${{ runner.temp }}/inno
+          key: innosetup-6.7.3
+
       - name: Inno Setup
         shell: pwsh
         run: |
-          # закреплённая версия с проверкой SHA-256 (та же, что на ПК сборки)
+          # закреплённая версия с проверкой SHA-256 (та же, что на ПК сборки); хеш сверяется и у файла из кэша
           $url = 'https://github.com/jrsoftware/issrc/releases/download/is-6_7_3/innosetup-6.7.3.exe'
           $sha = '9C73C3BAE7ED48D44112A0F48E66742C00090BDB5BEF71D9D3C056C66E97B732'
-          $exe = Join-Path $env:RUNNER_TEMP 'innosetup-6.7.3.exe'
-          # GitHub иногда отвечает 504 на скачивание выпуска — несколько попыток
-          for ($i = 1; $i -le 5; $i++) {
-            try { Invoke-WebRequest $url -OutFile $exe; break }
-            catch { if ($i -eq 5) { throw }; Write-Host "Inno Setup: попытка $i не удалась ($($_.Exception.Message)), ждём"; Start-Sleep (10 * $i) }
+          $dir = Join-Path $env:RUNNER_TEMP 'inno'; New-Item -ItemType Directory -Force $dir | Out-Null
+          $exe = Join-Path $dir 'innosetup-6.7.3.exe'
+          if ((Test-Path $exe) -and (Get-FileHash $exe -Algorithm SHA256).Hash -ne $sha) { Remove-Item $exe }
+          for ($i = 1; -not (Test-Path $exe); $i++) {
+            try { Invoke-WebRequest $url -OutFile $exe }
+            catch { Remove-Item $exe -ErrorAction SilentlyContinue; if ($i -ge 8) { throw }; Write-Host "Inno Setup: попытка $i не удалась ($($_.Exception.Message)), ждём"; Start-Sleep (15 * $i) }
           }
           if ((Get-FileHash $exe -Algorithm SHA256).Hash -ne $sha) { throw 'Inno Setup: SHA-256 не совпал' }
           $p = Start-Process $exe -ArgumentList '/VERYSILENT','/SUPPRESSMSGBOXES','/NORESTART','/SP-','/ALLUSERS' -Wait -PassThru
