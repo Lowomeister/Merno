@@ -508,6 +508,7 @@ foreach ($a in @({list})) {{
         // ================= ЗАЩИТА WINDOWS (только вручную, мастер не трогает) =================
         new Tweak { Id="defender_off", Cat="Защита Windows", Risk=2, Reboot=true,
             Name="Отключить Защитник Windows",
+            Confirm="Компьютер останется без защиты от вирусов: Защитник перестанет проверять файлы, загрузки и программы. Включайте, только если у вас стоит другой антивирус.",
             Hint="Компьютер останется без защиты от вирусов. Если Windows не даст выключить, Merno откроет нужное окно. Выключите в нём «Защиту от подделки» и нажмите ещё раз.",
             Test = c => c.DefenderDisabled,
             Do = c => {
@@ -554,6 +555,7 @@ foreach ($a in @({list})) {{
             Name="Отключить предупреждения SmartScreen",
             Desc="Отключает проверки репутации файлов Проводника и сайтов Edge.",
             Hint="Меняет политики Проводника и Microsoft Edge. Антивирус и проверки других браузеров этой настройкой не отключаются.",
+            Confirm="Windows перестанет предупреждать о незнакомых и опасных файлах из интернета и о вредных сайтах в Edge. Поддельную программу можно будет запустить без единого вопроса.",
             Cond = s => s.HasManagedPolicies && s.Build >= 15063,
             Reg = { D(LM, @"SOFTWARE\Policies\Microsoft\Windows\System", "EnableSmartScreen", 0),
                     Str(LM, @"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer", "SmartScreenEnabled", "Off") with { Cond = s => false },

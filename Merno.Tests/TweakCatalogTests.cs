@@ -24,15 +24,18 @@ public class TweakCatalogTests
         Assert.Empty(hidden);
     }
 
-    [Fact]
-    public void Отключение_запроса_UAC_спрашивает_дважды_и_не_входит_в_режимы()
+    [Theory]
+    [InlineData("uac_quiet")]
+    [InlineData("defender_off")]
+    [InlineData("smartscreen_off")]
+    public void Отключение_защиты_спрашивает_дважды_и_не_входит_в_режимы(string id)
     {
         var all = Catalog.All();
-        var uac = all.Single(t => t.Id == "uac_quiet");
-        Assert.Equal(2, uac.Risk);
-        Assert.False(string.IsNullOrWhiteSpace(uac.Confirm));
+        var t = all.Single(x => x.Id == id);
+        Assert.Equal(2, t.Risk);
+        Assert.False(string.IsNullOrWhiteSpace(t.Confirm));
         foreach (var mode in new[] { "rec", "gaming", "minimal" })
-            Assert.DoesNotContain("uac_quiet", Catalog.Preset(mode, all));
+            Assert.DoesNotContain(id, Catalog.Preset(mode, all));
     }
 
     [Fact]

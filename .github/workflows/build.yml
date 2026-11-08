@@ -39,7 +39,15 @@ jobs:
       - name: Inno Setup
         shell: pwsh
         run: |
-          if (-not (Test-Path "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe")) { choco install innosetup -y --no-progress }
+          # закреплённая версия с проверкой SHA-256 (та же, что на ПК сборки)
+          $url = 'https://github.com/jrsoftware/issrc/releases/download/is-6_7_3/innosetup-6.7.3.exe'
+          $sha = '9C73C3BAE7ED48D44112A0F48E66742C00090BDB5BEF71D9D3C056C66E97B732'
+          $exe = Join-Path $env:RUNNER_TEMP 'innosetup-6.7.3.exe'
+          Invoke-WebRequest $url -OutFile $exe
+          if ((Get-FileHash $exe -Algorithm SHA256).Hash -ne $sha) { throw 'Inno Setup: SHA-256 не совпал' }
+          $p = Start-Process $exe -ArgumentList '/VERYSILENT','/SUPPRESSMSGBOXES','/NORESTART','/SP-','/ALLUSERS' -Wait -PassThru
+          if ($p.ExitCode -ne 0) { throw "Inno Setup: код $($p.ExitCode)" }
+          if (-not (Test-Path "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe")) { throw 'Inno Setup: ISCC.exe не найден' }
 
       - name: Проверки (версия, JSON, каталог)
         shell: pwsh

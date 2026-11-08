@@ -26,6 +26,9 @@
     <SatelliteResourceLanguages>ru</SatelliteResourceLanguages>
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
     <StartupHookSupport>false</StartupHookSupport>
+    <!-- версии и хеши пакетов NuGet фиксируются в packages.lock.json; в GitHub Actions — только из него -->
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <RestoreLockedMode Condition="'$(GITHUB_ACTIONS)' == 'true'">true</RestoreLockedMode>
   </PropertyGroup>
   <ItemGroup>
     <!-- WinForms нужен только для значка в трее: его типы пишем полностью, чтобы не путать с WPF -->
