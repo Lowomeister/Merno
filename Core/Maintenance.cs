@@ -288,7 +288,9 @@ public static class Startup
     internal static string CleanDescription(string text)
     {
         if (string.IsNullOrWhiteSpace(text)) return "";
-        return UrlInText.Replace(text, "").Trim(' ', '-', '–', '—', '|', ',', ':');
+        var t = UrlInText.Replace(text, "").Trim(' ', '-', '–', '—', '|', ',', ':');
+        // слитное описание («OneDriveLauncher») — словами
+        return !t.Contains(' ') && CamelBreak.IsMatch(t) ? NameFromKey(t) ?? t : t;
     }
 
     static readonly System.Text.RegularExpressions.Regex KeyTail = new(
@@ -299,6 +301,9 @@ public static class Startup
         @"[\s_-]*(?:Task|Startup|Logon)\s*$", System.Text.RegularExpressions.RegexOptions.IgnoreCase | System.Text.RegularExpressions.RegexOptions.Compiled);
     static readonly System.Text.RegularExpressions.Regex CamelBreak = new(
         @"(?<=[a-z0-9])(?=[A-Z][a-z])|(?<=[A-Z])(?=[A-Z][a-z])", System.Text.RegularExpressions.RegexOptions.Compiled);   // «v2rayN» не делится
+
+    /// <summary>Марки, которые пишутся слитно: при делении слов склеиваем обратно («|» — место, где поделится).</summary>
+    static readonly string[] Brands = { "One|Drive", "One|Note", "Power|Shell", "Ge|Force", "Team|Viewer", "You|Tube", "Whats|App", "Play|Station", "Java|Script" };
 
     /// <summary>
     /// Понятное имя из названия записи Run или задачи, когда у exe нет описания:
@@ -320,7 +325,11 @@ public static class Startup
         }
         s = s.Replace('_', ' ').Trim(' ', '-', '.');
         // слитное имя («GoogleChrome», «MSICenter») делим на слова; где пробелы уже есть («OneDrive Reporting») — не трогаем
-        if (!s.Contains(' ')) s = CamelBreak.Replace(s, " ");
+        if (!s.Contains(' '))
+        {
+            s = CamelBreak.Replace(s, " ");
+            foreach (var brand in Brands) s = s.Replace(brand.Replace("|", " "), brand.Replace("|", ""));   // «One Drive» → «OneDrive»
+        }
         s = System.Text.RegularExpressions.Regex.Replace(s, @"\s{2,}", " ").Trim();
         return s.Length >= 2 ? s : null;
     }
@@ -519,7 +528,7 @@ public static class Startup
                         if (tk?.GetValue("State") is not int state) continue;
                         // название из пакета; не нашли — из имени пакета: SpotifyAB.SpotifyMusic_zpdnekdrzrea0 → SpotifyMusic
                         var fam = pkg.Split('_')[0]; var nice = fam.Contains('.') ? fam[(fam.LastIndexOf('.') + 1)..] : fam;
-                        res.Add(new StartupItem { Name = task, Title = StoreTitle(pkg) ?? nice, Command = pkg, Scope = "приложение Microsoft Store", Kind = StartKind.Store,
+                        res.Add(new StartupItem { Name = task, Title = StoreTitle(pkg) ?? NameFromKey(nice) ?? nice, Command = pkg, Scope = "приложение Microsoft Store", Kind = StartKind.Store,
                                                   TaskPath = AppData + "\\" + pkg + "\\" + task, Enabled = state == 2 || state == 4 });
                     }
                 }

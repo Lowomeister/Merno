@@ -25,6 +25,10 @@ public class StartupTitleTests
     [InlineData("Discord", "Discord")]
     [InlineData("Radmin VPN", "Radmin VPN")]
     [InlineData("TaskbarX", "TaskbarX")]
+    [InlineData("MicrosoftOfficeHub", "Microsoft Office Hub")]
+    [InlineData("OneDriveLauncher", "OneDrive Launcher")]
+    [InlineData("GeForceExperience", "GeForce Experience")]
+    [InlineData("WinRAR", "WinRAR")]
     public void RawKeyBecomesReadableName(string key, string expected) => Assert.Equal(expected, Startup.NameFromKey(key));
 
     [Theory]
@@ -39,6 +43,9 @@ public class StartupTitleTests
     [InlineData("Some Tool (https://example.org)", "Some Tool")]
     [InlineData("Radmin VPN", "Radmin VPN")]
     [InlineData("Помощник www.example.ru", "Помощник")]
+    [InlineData("OneDriveLauncher", "OneDrive Launcher")]
+    [InlineData("v2rayN", "v2rayN")]
+    [InlineData("Steam", "Steam")]
     public void DescriptionLosesWebAddress(string text, string expected) => Assert.Equal(expected, Startup.CleanDescription(text));
 
     [Fact]
