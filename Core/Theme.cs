@@ -73,7 +73,7 @@ public sealed class Theme
         return Color.FromArgb(c.A, r.R, r.G, r.B);
     }
 
-    static readonly Regex Hex = new(@"#(?<a>[0-9A-Fa-f]{2})?(?<rgb>[0-9A-Fa-f]{6})(?![0-9A-Fa-f])", RegexOptions.Compiled);
+    internal static readonly Regex Hex = new(@"#(?<a>[0-9A-Fa-f]{2})?(?<rgb>[0-9A-Fa-f]{6})(?![0-9A-Fa-f])", RegexOptions.Compiled);
 
     /// <summary>Перекрашивает все цвета #RRGGBB / #AARRGGBB в тексте XAML.</summary>
     public string MapXaml(string xaml) => Hex.Replace(xaml, m =>

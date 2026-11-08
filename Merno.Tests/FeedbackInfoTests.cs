@@ -21,6 +21,15 @@ public class FeedbackInfoTests
     }
 
     [Fact]
+    public void Ссылка_на_GitHub_ведёт_в_обращения_проекта()
+    {
+        var uri = new Uri(Feedback.GitHubIssuesUrl);
+        Assert.Equal("https", uri.Scheme);
+        Assert.Equal("github.com", uri.Host);
+        Assert.Equal("/Lowomeister/Merno/issues/new/choose", uri.AbsolutePath);
+    }
+
+    [Fact]
     public void Сведения_влезают_в_сообщение_и_хранят_свежие_ошибки()
     {
         var errors = string.Join("\n", Enumerable.Range(1, 2000).Select(i => $"ошибка номер {i}"));

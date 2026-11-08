@@ -1254,6 +1254,16 @@
                                 </StackPanel>
                             </DockPanel>
                         </Border>
+                        <Border x:Name="FbGitHub" Style="{StaticResource Plate}">
+                            <DockPanel>
+                                <Border DockPanel.Dock="Left" Style="{StaticResource IconTile}" Margin="0,0,14,0"><TextBlock Style="{StaticResource IconGlyph}" Text="&#xEBE8;"/></Border>
+                                <Button x:Name="BtnFbGitHub" DockPanel.Dock="Right" Content="Открыть" Style="{StaticResource Outline}" VerticalAlignment="Center" Margin="20,0,0,0"/>
+                                <StackPanel VerticalAlignment="Center">
+                                    <TextBlock Style="{StaticResource RowTitle}" Text="Сообщить на GitHub"/>
+                                    <TextBlock Style="{StaticResource RowSub}" TextWrapping="Wrap" Text="Если у вас есть аккаунт GitHub. Обращение увидят все, поэтому личное в него не пишите."/>
+                                </StackPanel>
+                            </DockPanel>
+                        </Border>
                         <Border x:Name="FbCopyInfo" Style="{StaticResource Plate}">
                             <DockPanel>
                                 <Border DockPanel.Dock="Left" Style="{StaticResource IconTile}" Margin="0,0,14,0"><TextBlock Style="{StaticResource IconGlyph}" Text="&#xE8C8;"/></Border>

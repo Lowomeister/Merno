@@ -38,9 +38,10 @@ public partial class MainWindow
 
         BtnLicense.Click += (_, _) => Sh.Open("https://www.gnu.org/licenses/gpl-3.0.html");
         BtnFbTelegram.Click += (_, _) => OpenTelegram();
+        BtnFbGitHub.Click += (_, _) => Sh.Open(Feedback.GitHubIssuesUrl);
         BtnFbCopy.Click += (_, _) =>
         {
-            if (TryCopy(Feedback.CollectInfo(_ctx.S?.OneLine()))) FbSay("Скопировано. Вставьте сведения в сообщение в Telegram.", "Ok");
+            if (TryCopy(Feedback.CollectInfo(_ctx.S?.OneLine()))) FbSay("Скопировано. Вставьте сведения в сообщение в Telegram или на GitHub.", "Ok");
             else FbSay("Не получилось скопировать. Попробуйте ещё раз.", "Warn");
         };
 

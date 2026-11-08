@@ -16,6 +16,9 @@ public static class Feedback
     /// <summary>https, а не tg:// — откроется и без установленного Telegram.</summary>
     public const string TelegramUrl = "https://t.me/Lowomebot?start=merno";
 
+    /// <summary>Новое обращение на GitHub: страница выбора (.github/ISSUE_TEMPLATE) — шаблоны и ссылки на Telegram и уязвимости.</summary>
+    public const string GitHubIssuesUrl = "https://github.com/" + Updater.Repo + "/issues/new/choose";
+
     /// <summary>Сообщение Telegram — до 4096 символов; оставляем место на текст человека.</summary>
     public const int MaxInfo = 3000;
 
