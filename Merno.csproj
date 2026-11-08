@@ -13,6 +13,8 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Assets\app.ico</ApplicationIcon>
     <Version>1.0.1</Version>
+    <!-- версия без «+хеш коммита»: SignPath сверяет ProductVersion с номером выпуска -->
+    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
     <Product>Merno</Product>
     <Description>Оптимизатор Windows 10/11</Description>
     <Copyright>Copyright © 2026 Merno contributors</Copyright>

@@ -99,7 +99,37 @@ if STAGE in ("all", "binaries"):
         environment = dict(os.environ, ZIG_GLOBAL_CACHE_DIR=str(ROOT / "obj" / "zig-cache"), ZIG_LOCAL_CACHE_DIR=str(ROOT / "obj" / "zig-local-cache"))
         subprocess.run([str(ZIG), "cc", "-target", "x86_64-windows-gnu", "-O2", "-municode", "-Wl,--subsystem,windows", "-static", str(SOURCE),
                         "-I", str(OUT), "-o", str(output), "-ladvapi32", "-lshell32", "-lole32", "-luser32", *extra], check=True, env=environment)
-    (OUT / "launcher.rc").write_text('1 ICON "' + (ROOT / "Assets/app.ico").as_posix() + '"\n', encoding="utf-8")
+    # значок и сведения о версии: без них Windows не покажет продукт и издателя, а SignPath сверяет название и версию
+    parts = (VERSION.split(".") + ["0", "0", "0", "0"])[:4]
+    (OUT / "launcher.rc").write_text("\n".join([
+        "#pragma code_page(65001)",
+        '1 ICON "' + (ROOT / "Assets/app.ico").as_posix() + '"',
+        "1 VERSIONINFO",
+        "FILEVERSION " + ",".join(parts),
+        "PRODUCTVERSION " + ",".join(parts),
+        "FILEOS 0x40004",
+        "FILETYPE 0x1",
+        "BEGIN",
+        '  BLOCK "StringFileInfo"',
+        "  BEGIN",
+        '    BLOCK "041904B0"',
+        "    BEGIN",
+        '      VALUE "CompanyName", "Merno contributors"',
+        '      VALUE "FileDescription", "Merno"',
+        '      VALUE "FileVersion", "' + VERSION + '"',
+        '      VALUE "InternalName", "Merno"',
+        '      VALUE "LegalCopyright", "Copyright © 2026 Merno contributors"',
+        '      VALUE "OriginalFilename", "Merno.exe"',
+        '      VALUE "ProductName", "Merno"',
+        '      VALUE "ProductVersion", "' + VERSION + '"',
+        "    END",
+        "  END",
+        '  BLOCK "VarFileInfo"',
+        "  BEGIN",
+        '    VALUE "Translation", 0x419, 1200',
+        "  END",
+        "END",
+        ""]), encoding="utf-8")
     subprocess.run([str(ZIG), "rc", "/fo", str(OUT / "launcher.res"), str(OUT / "launcher.rc")], check=True,
                    env=dict(os.environ, ZIG_GLOBAL_CACHE_DIR=str(ROOT / "obj" / "zig-cache"), ZIG_LOCAL_CACHE_DIR=str(ROOT / "obj" / "zig-local-cache")))
     compile_native(OUT / "Merno.exe", str(OUT / "launcher.res"))

@@ -93,6 +93,15 @@ jobs:
           Copy-Item obj/installed-kit/payload/Merno.exe sign/app/
           Copy-Item obj/portable/Merno.exe sign/portable/
 
+      # номер выпуска для SignPath: сверяет ProductVersion подписываемых файлов (.signpath/artifact-configurations)
+      - id: version
+        if: env.SIGN == 'true'
+        shell: pwsh
+        run: |
+          $v = [regex]::Match((Get-Content App.xaml.cs -Raw), 'const string Version = "([\d.]+)"').Groups[1].Value
+          if (-not $v) { throw 'Не найден номер версии в App.xaml.cs' }
+          "version=$v" >> $env:GITHUB_OUTPUT
+
       - id: unsigned-binaries
         if: env.SIGN == 'true'
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
@@ -103,13 +112,15 @@ jobs:
 
       - name: Подпись exe (SignPath)
         if: env.SIGN == 'true'
-        uses: signpath/github-action-submit-signing-request@c92b958760219087e01f8d67a1669ed57afe2627 # v2
+        uses: signpath/github-action-submit-signing-request@f6d04783b4569d051e0c80105fe66e82819d0092 # v3.0
         with:
           api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
           organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
           project-slug: merno
           signing-policy-slug: release-signing
           artifact-configuration-slug: binaries
+          parameters: |
+            version: ${{ toJSON(steps.version.outputs.version) }}
           github-artifact-id: ${{ steps.unsigned-binaries.outputs.artifact-id }}
           wait-for-completion: true
           output-artifact-directory: signed
@@ -136,13 +147,15 @@ jobs:
 
       - name: Подпись установщика (SignPath)
         if: env.SIGN == 'true'
-        uses: signpath/github-action-submit-signing-request@c92b958760219087e01f8d67a1669ed57afe2627 # v2
+        uses: signpath/github-action-submit-signing-request@f6d04783b4569d051e0c80105fe66e82819d0092 # v3.0
         with:
           api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
           organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
           project-slug: merno
           signing-policy-slug: release-signing
           artifact-configuration-slug: installer
+          parameters: |
+            version: ${{ toJSON(steps.version.outputs.version) }}
           github-artifact-id: ${{ steps.unsigned-setup.outputs.artifact-id }}
           wait-for-completion: true
           output-artifact-directory: signed-setup

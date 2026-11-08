@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- SignPath: артефакт «unsigned-setup» из .github/workflows/build.yml (slug: installer) -->
+<!-- SignPath: артефакт «unsigned-setup» из .github/workflows/build.yml (slug: installer).
+     Сверки названия и версии здесь нет: Inno Setup дополняет эти поля пробелами («Merno     »), точное сравнение не пройдёт.
+     Если SignPath потребует сверку для установщика — уточнить у них, обрезают ли они пробелы. -->
 <artifact-configuration xmlns="http://signpath.io/artifact-configuration/v1">
+  <parameters>
+    <parameter name="version" required="true" />
+  </parameters>
   <zip-file>
     <pe-file path="Merno-Setup.exe"><authenticode-sign /></pe-file>
   </zip-file>
