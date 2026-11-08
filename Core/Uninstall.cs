@@ -77,7 +77,7 @@ public static class Uninstall
             {
                 if (string.IsNullOrWhiteSpace(raw)) continue;
                 var d = Path.GetFullPath(Environment.ExpandEnvironmentVariables(raw.Trim().Trim('"'))).TrimEnd('\\');
-                if (Directory.Exists(d) && !SharedDir(d)) return d;
+                if (SafeFs.IsLocal(d) && Directory.Exists(d) && !SharedDir(d)) return d;   // путь из реестра: по сети не считаем
             }
             catch { }
         }

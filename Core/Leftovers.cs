@@ -106,7 +106,7 @@ public static class Leftovers
         if (e.GetValue("DisplayIcon") is string icon && !string.IsNullOrWhiteSpace(icon))
         {
             var ip = ExePath(icon.Split(',')[0]);
-            if (ip != null && File.Exists(ip)) return false;
+            if (ip != null && (!OnFixedDrive(ip) || File.Exists(ip))) return false;   // сетевой или съёмный — запись не трогаем, по сети не ходим
         }
         return true;
     }

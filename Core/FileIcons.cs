@@ -38,7 +38,7 @@ public static class FileIcons
         try
         {
             var (file, idx) = Parse(spec);
-            if (File.Exists(file))
+            if (SafeFs.IsLocal(file) && File.Exists(file))   // путь из реестра: по сети не ходим
             {
                 var ext = Path.GetExtension(file).ToLowerInvariant();
                 if (ext is ".png" or ".jpg" or ".jpeg")
@@ -69,6 +69,7 @@ public static class FileIcons
     /// <summary>Есть ли в exe/dll свои значки (у служебных помощников их часто нет — Windows рисует пустой «файл»).</summary>
     public static bool HasOwnIcon(string file)
     {
+        if (!SafeFs.IsLocal(file)) return true;
         try { return ExtractIconEx(file, -1, null, null, 0) > 0; } catch { return true; }
     }
 
@@ -77,7 +78,7 @@ public static class FileIcons
     {
         try
         {
-            if (string.IsNullOrEmpty(installDir) || string.IsNullOrEmpty(logoRel)) return null;
+            if (string.IsNullOrEmpty(installDir) || string.IsNullOrEmpty(logoRel) || !SafeFs.IsLocal(installDir)) return null;
             var full = Path.Combine(installDir, logoRel);
             if (File.Exists(full)) return full;
             var dir = Path.GetDirectoryName(full); var name = Path.GetFileNameWithoutExtension(full); var ext = Path.GetExtension(full);

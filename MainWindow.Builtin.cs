@@ -132,6 +132,14 @@ public partial class MainWindow
             ? MernoDialog(text, "Удаление приложений", "Удалить", "Отмена", true, B("Bad"), string.Join("\n\n", danger.Select(b => $"{b.Name}: {b.Danger}")))
             : Ask(text, "Удаление приложений", MessageBoxImage.Warning, "Удалить");
         if (!ok) return;
+        // Edge и другое, чего не вернуть «Откатом», — сначала точка восстановления (как в «Настройках Windows»)
+        if (items.Any(b => b.TweakId != null && TweakById(b.TweakId)?.CanRevert == false))
+        {
+            bool rp = false;
+            if (!await Busy("Создаю точку восстановления…", () => rp = Backup.CreateRestorePoint())) return;
+            if (!rp && !Ask("Точку восстановления создать не удалось. Возможно, выключена защита системы.\n\nУдалить без неё?",
+                            "Удаление приложений", MessageBoxImage.Warning, "Удалить")) return;
+        }
         var apps = _unApps.ToList();
         var failed = new List<string>();
         int i = 0;

@@ -21,11 +21,12 @@ public static class BundleGuard
 
     public static void Check()
     {
+        List<string> dirs = null;
+        bool bad = false;
         try
         {
-            var dirs = ExtractDirs();
+            dirs = ExtractDirs();
             if (dirs.Count == 0) return;
-            bool bad = false;
             foreach (var d in dirs)
             {
                 if ((File.GetAttributes(d) & FileAttributes.ReparsePoint) != 0) { bad = true; continue; }
@@ -33,32 +34,44 @@ public static class BundleGuard
                 foreach (var f in Directory.EnumerateFiles(d))
                     if (!SignedByMicrosoft(f)) { bad = true; break; }
             }
-            if (!bad) return;
-
-            var args = Environment.GetCommandLineArgs().Skip(1).ToList();
-            if (args.Contains(RecheckArg, StringComparer.OrdinalIgnoreCase))
-            {
-                MessageBoxW(IntPtr.Zero, "Файлы, которые Merno распаковывает при запуске, повреждены или подменены, и исправить это не удалось.\n\n" +
-                    "Проверьте компьютер антивирусом. Merno не будет запущен.", "Merno", 0x10);
-                Environment.Exit(1);
-            }
-            foreach (var d in dirs) Remove(d);
-            var psi = new ProcessStartInfo(Environment.ProcessPath) { UseShellExecute = false, WorkingDirectory = Environment.SystemDirectory };
-            foreach (var a in args) psi.ArgumentList.Add(a);
-            psi.ArgumentList.Add(RecheckArg);
-            Process.Start(psi);
-            Environment.Exit(0);
         }
-        catch { /* защита не должна мешать запуску */ }
+        catch { bad = true; }   // проверить не удалось (например, папку не дают перечислить) — как при подмене, иначе загрузим непроверенное
+        if (!bad) return;
+
+        var args = Environment.GetCommandLineArgs().Skip(1).ToList();
+        try
+        {
+            if (!args.Contains(RecheckArg, StringComparer.OrdinalIgnoreCase))
+            {
+                if (dirs != null) foreach (var d in dirs) Remove(d);
+                else Remove(AppDir());   // список папок не получили — убираем всю распаковку Merno
+                var psi = new ProcessStartInfo(Environment.ProcessPath) { UseShellExecute = false, WorkingDirectory = Environment.SystemDirectory };
+                foreach (var a in args) psi.ArgumentList.Add(a);
+                psi.ArgumentList.Add(RecheckArg);
+                Process.Start(psi);
+                Environment.Exit(0);
+            }
+        }
+        catch { }
+        // уже перезапускались или перезапуск не удался: с непроверенными библиотеками не запускаемся
+        MessageBoxW(IntPtr.Zero, "Файлы, которые Merno распаковывает при запуске, повреждены или подменены, и исправить это не удалось.\n\n" +
+            "Проверьте компьютер антивирусом. Merno не будет запущен.", "Merno", 0x10);
+        Environment.Exit(1);
+    }
+
+    /// <summary>%TEMP%\.net\Merno (или DOTNET_BUNDLE_EXTRACT_BASE_DIR\Merno).</summary>
+    static string AppDir()
+    {
+        string baseDir = Environment.GetEnvironmentVariable("DOTNET_BUNDLE_EXTRACT_BASE_DIR");
+        if (string.IsNullOrWhiteSpace(baseDir)) baseDir = Path.Combine(Path.GetTempPath(), ".net");
+        return Path.Combine(baseDir, "Merno");
     }
 
     /// <summary>Папки распаковки этого Merno: %TEMP%\.net\Merno\* (или DOTNET_BUNDLE_EXTRACT_BASE_DIR).</summary>
     static List<string> ExtractDirs()
     {
         var res = new List<string>();
-        string baseDir = Environment.GetEnvironmentVariable("DOTNET_BUNDLE_EXTRACT_BASE_DIR");
-        if (string.IsNullOrWhiteSpace(baseDir)) baseDir = Path.Combine(Path.GetTempPath(), ".net");
-        string app = Path.Combine(baseDir, "Merno");
+        string app = AppDir();
         if (!Directory.Exists(app)) return res;
         if ((File.GetAttributes(app) & FileAttributes.ReparsePoint) == 0) Lock(app);
         res.AddRange(Directory.GetDirectories(app));

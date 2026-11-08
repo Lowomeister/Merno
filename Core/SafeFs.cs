@@ -35,6 +35,21 @@ public static class SafeFs
     [DllImport("kernel32.dll", SetLastError = true)]
     static extern bool SetFileInformationByHandle(SafeFileHandle h, int cls, ref FILE_BASIC_INFO info, uint size);
 
+    /// <summary>
+    /// Путь на диске этого компьютера: «C:\…», не сетевой (\\сервер, //, \\?\UNC, \\.\) и не на подключённом сетевом диске.
+    /// Пути из реестра и чужих файлов проверять этим до File.Exists и чтения: иначе Merno с правами администратора
+    /// пойдёт по сети (вход по NTLM, зависание на таймауте, разбор чужого файла).
+    /// </summary>
+    public static bool IsLocal(string path) => IsLocal(path, d => new DriveInfo(d.ToString()).DriveType);
+
+    internal static bool IsLocal(string path, Func<char, DriveType> driveType)
+    {
+        if (string.IsNullOrWhiteSpace(path) || path.Length < 3) return false;
+        if (!char.IsAsciiLetter(path[0]) || path[1] != ':' || (path[2] != '\\' && path[2] != '/')) return false;
+        try { return driveType(path[0]) is not (DriveType.Network or DriveType.NoRootDirectory or DriveType.Unknown); }
+        catch { return false; }
+    }
+
     static SafeFileHandle Open(string path, uint access) =>
         CreateFileW(path, access, FILE_SHARE_ALL, IntPtr.Zero, OPEN_EXISTING, FILE_FLAG_OPEN_REPARSE_POINT | FILE_FLAG_BACKUP_SEMANTICS, IntPtr.Zero);
 

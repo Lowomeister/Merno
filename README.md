@@ -55,7 +55,7 @@ build.bat
 
 Проверка перед выпуском: `check.bat` (версии, JSON, сборка, тесты).
 
-Тесты: `dotnet test Merno.Tests\Merno.Tests.csproj` (или откройте `Merno.sln` в Visual Studio). Тесты проверяют только чистую логику и ничего не меняют в Windows.
+Тесты: `dotnet test Merno.Tests\Merno.Tests.csproj` (или откройте `Merno.sln` в Visual Studio). Тесты проверяют чистую логику и не меняют настройки Windows; временные папки создают только рядом со своей сборкой и удаляют за собой.
 
 Проверка вида без изменений в Windows: `Merno.exe --shot <папка> PageHome,PageTweaks` делает снимки страниц в PNG.
 

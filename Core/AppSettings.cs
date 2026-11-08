@@ -22,7 +22,7 @@ public class AppSettings
     public int SortUninstall { get; set; }
     public int SortStartup { get; set; }
     public int SortClean { get; set; }
-    /// <summary>Проверять обновления при запуске (не чаще раза в сутки).</summary>
+    /// <summary>Проверять обновления при каждом запуске.</summary>
     public bool AutoUpdateCheck { get; set; } = true;
     public DateTime LastUpdateCheck { get; set; }
     /// <summary>Итог последней проверки — для строки в Настройках.</summary>

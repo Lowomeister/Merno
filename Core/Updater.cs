@@ -288,6 +288,10 @@ public static class Updater
         if (!File.Exists(Path.Combine(destination, "Merno.Setup.exe"))) throw new InvalidDataException("В комплекте нет установщика.");
     }
 
+    /// <summary>Версия выпуска строго новее запущенной. Нет номера или он не разбирается — не новее.</summary>
+    internal static bool IsNewer(string version, System.Version current) =>
+        System.Version.TryParse(version, out var v) && v > current;
+
     /// <summary>
     /// Ставит скачанный и проверенный комплект: ещё раз сверяет подпись, распаковывает его в рабочую папку и запускает
     /// из неё установщик. Установщик дождётся закрытия Merno, поставит новую версию в versions\ и откроет Merno.
@@ -300,6 +304,8 @@ public static class Updater
         {
             using var source = new FileStream(newFile, FileMode.Open, FileAccess.Read, FileShare.Read);
             if (info.Format != "installed-kit-v1" || Verify(newFile, info) != null) return "sig";
+            // ещё раз, перед самой установкой: старую или ту же версию не ставим (защита от отката)
+            if (!IsNewer(info.Version, Current)) { Log.Warn($"Обновление {info.Version} не новее запущенной {App.Version}, не ставим"); return "sig"; }
             string directory = Log.NewWorkDir("install");
             ExtractKit(newFile, directory);
             string installer = Path.Combine(directory, "Merno.Setup.exe");

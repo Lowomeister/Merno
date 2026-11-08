@@ -319,7 +319,7 @@ public static class Startup
             {
                 if (!full.StartsWith(name + "_", StringComparison.OrdinalIgnoreCase) || !full.EndsWith("_" + pub, StringComparison.OrdinalIgnoreCase)) continue;
                 using var k = repo.OpenSubKey(full);
-                if (k?.GetValue("PackageRootFolder") is not string dir || !Directory.Exists(dir)) continue;   // старая версия пакета, её уже нет
+                if (k?.GetValue("PackageRootFolder") is not string dir || !SafeFs.IsLocal(dir) || !Directory.Exists(dir)) continue;   // старая версия пакета, её уже нет
                 if (!InProtectedPackageRoot(dir, full, family)) continue;   // HKCU пишет любая программа: ресурсы из папки пользователя не разбираем
                 var t = PackageText(full, name, k.GetValue("DisplayName") as string);
                 if (t != null) return t;
@@ -401,7 +401,7 @@ public static class Startup
         try
         {
             var exe = ExeOf(cmd);
-            if (exe == null || !File.Exists(exe)) return null;
+            if (exe == null || !SafeFs.IsLocal(exe) || !File.Exists(exe)) return null;
             var d = System.Diagnostics.FileVersionInfo.GetVersionInfo(exe);
             var t = (d.FileDescription ?? "").Trim();
             if (t.Length < 3) t = (d.ProductName ?? "").Trim();
@@ -529,6 +529,7 @@ public static class Startup
         {
             if (Path.IsPathRooted(exe))
             {
+                if (!SafeFs.IsLocal(exe)) return null;   // строка из реестра: по сети не ходим
                 if (File.Exists(exe)) return exe;
                 return !Path.HasExtension(exe) && File.Exists(exe + ".exe") ? exe + ".exe" : null;
             }
@@ -539,14 +540,14 @@ public static class Startup
                 if (k?.GetValue(null) is string ap)
                 {
                     ap = Environment.ExpandEnvironmentVariables(ap.Trim().Trim('"'));
-                    if (File.Exists(ap)) return ap;
+                    if (SafeFs.IsLocal(ap) && File.Exists(ap)) return ap;
                 }
             }
             var dirs = new List<string> { Environment.SystemDirectory, Environment.GetFolderPath(Environment.SpecialFolder.Windows) };
             dirs.AddRange((Environment.GetEnvironmentVariable("PATH") ?? "").Split(';', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries));
             foreach (var d in dirs)
             {
-                try { var f = Path.Combine(Environment.ExpandEnvironmentVariables(d.Trim('"')), name); if (File.Exists(f)) return f; } catch { }
+                try { var f = Path.Combine(Environment.ExpandEnvironmentVariables(d.Trim('"')), name); if (SafeFs.IsLocal(f) && File.Exists(f)) return f; } catch { }
             }
         }
         catch { }
@@ -564,7 +565,7 @@ public static class Startup
         {
             var f = m.Groups[1].Value;
             if (first != null && f.Equals(first, StringComparison.OrdinalIgnoreCase)) continue;
-            if (!Hosts.Contains(Path.GetFileName(f)) && File.Exists(f)) return f;
+            if (!Hosts.Contains(Path.GetFileName(f)) && SafeFs.IsLocal(f) && File.Exists(f)) return f;
         }
         return first;
     }
@@ -589,7 +590,7 @@ public static class Startup
                         if (k?.GetValue("DisplayIcon") is not string icon || string.IsNullOrWhiteSpace(icon)) continue;
                         icon = Environment.ExpandEnvironmentVariables(icon.Trim());
                         var iconFile = icon.Trim('"'); int c = iconFile.LastIndexOf(','); if (c > 2) iconFile = iconFile[..c].Trim().Trim('"');
-                        if (!File.Exists(iconFile)) continue;
+                        if (!SafeFs.IsLocal(iconFile) || !File.Exists(iconFile)) continue;
                         var dir = (k.GetValue("InstallLocation") as string)?.Trim().Trim('"');
                         if (string.IsNullOrEmpty(dir)) dir = Path.GetDirectoryName(iconFile);
                         if (!string.IsNullOrEmpty(dir)) res.Add((dir.TrimEnd('\\') + "\\", icon));
@@ -618,7 +619,7 @@ public static class Startup
                 using var k = repo.OpenSubKey(full);
                 var dir = k?.GetValue("PackageRootFolder") as string;
                 var manifest = dir == null ? null : Path.Combine(dir, "AppxManifest.xml");
-                if (manifest == null || !File.Exists(manifest)) continue;
+                if (manifest == null || !SafeFs.IsLocal(manifest) || !File.Exists(manifest)) continue;
                 var xml = File.ReadAllText(manifest);
                 // значок из списка приложений (квадратный) лучше, чем логотип магазина
                 foreach (var pat in new[] { @"Square44x44Logo=""([^""]+)""", @"<Logo>([^<]+)</Logo>" })

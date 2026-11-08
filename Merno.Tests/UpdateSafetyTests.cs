@@ -16,6 +16,17 @@ public class UpdateSafetyTests
     [InlineData(null)]
     public void PortableCopyCannotSelfReplaceOrRunElevatedUpdate(string path) => Assert.False(Updater.CanSelfUpdate(path));
 
+    [Theory]
+    [InlineData("1.0.1", "1.0.0", true)]
+    [InlineData("2.0.0", "1.9.9", true)]
+    [InlineData("1.0.0", "1.0.0", false)]
+    [InlineData("0.9.9", "1.0.0", false)]
+    [InlineData("", "1.0.0", false)]
+    [InlineData(null, "1.0.0", false)]
+    [InlineData("1.0.x", "1.0.0", false)]
+    public void ApplyInstallsOnlyStrictlyNewerVersion(string kit, string running, bool expected) =>
+        Assert.Equal(expected, Updater.IsNewer(kit, System.Version.Parse(running)));
+
     [Fact]
     public void ApplyRefusesBeforeReadingOrCopyingUpdateOutsideInstalledLocation() =>
         Assert.Equal(Updater.ManualUpdateMessage, Updater.Apply("missing-update", new UpdateInfo()));
