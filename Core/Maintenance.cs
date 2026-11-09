@@ -723,6 +723,12 @@ public static class Startup
         }
     }
 
+    /// <summary>Заглушка для значения «выключено» в ключе Run. В Windows ноль или пустое значение интерпретируется
+    /// как «использовать настройку по умолчанию», поэтому заглушка всегда ненулевая и неизменна — иначе при каждом
+    /// переключении включ→выкл→включ нужно было бы пересчитывать её (раньше она бралась из DateTime.Now, что ломало
+    /// тестируемость и делало состояние недетерминированным).</summary>
+    public static long DisabledRunPlaceholder => (long)1 << 62;
+
     /// <summary>Включение/отключение как в Диспетчере задач — полностью обратимо.</summary>
     public static void SetEnabled(StartupItem it, bool enable)
     {
@@ -737,7 +743,7 @@ public static class Startup
             default:
                 byte[] val = enable
                     ? new byte[] { 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-                    : new byte[] { 3, 0, 0, 0 }.Concat(BitConverter.GetBytes(DateTime.Now.ToFileTime())).ToArray();
+                    : new byte[] { 3, 0, 0, 0 }.Concat(BitConverter.GetBytes(DisabledRunPlaceholder)).ToArray();
                 if (!Reg.Set(it.Hive, it.ApprovedPath, it.Name, val, RegistryValueKind.Binary)) throw new IOException("Не удалось сохранить изменение автозагрузки.");
                 break;
         }
