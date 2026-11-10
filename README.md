@@ -76,6 +76,7 @@ build.bat
 
 - [Lowomeister](https://github.com/Lowomeister) — разработчик
 - [Rub1nchik](https://github.com/Rub1nchik702) — компаньон
+- [Claude](https://claude.com/claude-code) (Anthropic) — ИИ-помощник в разработке
 
 ## Лицензия
 
